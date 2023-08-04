@@ -140,7 +140,8 @@ def call():
         else:
             db.execute("INSERT INTO rooms (room_name, host_name, user_id) VALUES (?, ?, ?)", room_name, hostname, session["user_id"])
         
-        return redirect("/call")
+        rooms = db.execute("SELECT * FROM rooms ORDER BY host_name")
+        return render_template("room_list.html", rooms=rooms)
 
 @app.route("/publish")
 def publish():

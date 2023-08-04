@@ -27,7 +27,19 @@
     </tr>
     </thead>
     <tbody>
-
+        {% for room in rooms %}
+            <tr>
+                <td>
+                    {{ room["host_name"] }}
+                </td>
+                <td>
+                    {{ room["room_name"] }}
+                </td>
+                <td>
+                    0
+                </td>
+            </tr>
+        {% endfor %}
     </tbody>
 </table>
 {% endblock %}
