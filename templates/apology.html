@@ -1,0 +1,11 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Apology
+{% endblock %}
+
+{% block main %}
+<p class="error">
+    Error: {{ error_code }} {{ text }}
+</p>
+{% endblock %}
