@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Rooms
+{% endblock %}
+
+{% block main %}
+
+<form action="/call" method="post">
+    <div class="mb-3 mt-3">
+        <input autocomplete="on" autofocus class="form-control mx-auto w-auto" id="room_name" name="room_name" placeholder="Enter room name" type="text">
+    </div>
+    <div class="mb-3 mt-3">
+        <input autocomplete="on" autofocus class="form-control mx-auto w-auto" id="hostname" name="hostname" placeholder="Enter your name" type="text">
+    </div>
+    <div class="text-center">
+        <button class="btn btn-primary" type="submit">Create</button>
+    </div>
+</form>
+
+<table class="table table-borderless myTable">
+    <thead class="thead-dark">
+    <tr>
+        <th scope="col">Expert</th>
+        <th scope="col">Room Name</th>
+        <th scope="col">Elapsed time (maybe)</th>
+    </tr>
+    </thead>
+    <tbody>
+
+    </tbody>
+</table>
+{% endblock %}

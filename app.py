@@ -126,6 +126,22 @@ def logout():
 def landing():
     return render_template("landing.html")
 
+@app.route("/call", methods= ["GET", "POST"])
+def call():
+    if request.method == "GET":
+        return render_template("room_list.html")
+    elif request.method == "POST":
+        room_name = request.form.get("room_name")
+        hostname = request.form.get("hostname")
+
+        rows = db.execute("SELECT * FROM users WHERE role = ? AND id = ?", "expert", session["user_id"])
+        if len(rows) == 0:
+            return apology("Not an expert, Forbidden", 403)
+        else:
+            db.execute("INSERT INTO rooms (room_name, host_name, user_id) VALUES (?, ?, ?)", room_name, hostname, session["user_id"])
+        
+        return redirect("/call")
+
 @app.route("/publish")
 def publish():
     return apology("Under Construction!", 403)
@@ -136,8 +152,4 @@ def leaderboard():
 
 @app.route("/awards")
 def awards():
-    return apology("Under Construction!", 403)
-
-@app.route("/call")
-def call():
     return apology("Under Construction!", 403)
