@@ -1,17 +1,31 @@
 import os
+import uuid  # for generating random user id values
+
+import twilio.jwt.access_token
+import twilio.jwt.access_token.grants
+import twilio.rest
+from dotenv import load_dotenv
 from cs50 import SQL
 import datetime
 from flask import Flask, flash, redirect, render_template, request, session, jsonify
 from flask_session import Session
 from werkzeug.security import check_password_hash, generate_password_hash
 from functools import wraps
-import requests
 from email_validator import validate_email, EmailNotValidError
 
 # App object config
 app = Flask(__name__)
 
 app.debug = True
+
+# Load environment variables from a .env secure file
+load_dotenv()
+
+# Create a Twilio client
+account_sid = os.environ["TWILIO_ACCOUNT_SID"]
+api_key = os.environ["TWILIO_API_KEY_SID"]
+api_secret = os.environ["TWILIO_API_KEY_SECRET"]
+twilio_client = twilio.rest.Client(api_key, api_secret, account_sid)
 
 # Session impermanence config
 app.config["SESSION_PERMANENT"] = False
@@ -126,22 +140,47 @@ def logout():
 def landing():
     return render_template("landing.html")
 
-@app.route("/call", methods= ["GET", "POST"])
+
+@app.route("/call", methods=["GET", "POST"])
 def call():
     if request.method == "GET":
-        return render_template("room_list.html")
+        rooms = db.execute("SELECT * FROM rooms ORDER BY host_name")
+        return render_template("room_list.html", rooms=rooms)
     elif request.method == "POST":
-        room_name = request.form.get("room_name")
-        hostname = request.form.get("hostname")
-
+        room_name = request.form.get("room-name-input")
+        hostname = request.form.get("username")
         rows = db.execute("SELECT * FROM users WHERE role = ? AND id = ?", "expert", session["user_id"])
         if len(rows) == 0:
             return apology("Not an expert, Forbidden", 403)
         else:
             db.execute("INSERT INTO rooms (room_name, host_name, user_id) VALUES (?, ?, ?)", room_name, hostname, session["user_id"])
-        
+
         rooms = db.execute("SELECT * FROM rooms ORDER BY host_name")
-        return render_template("room_list.html", rooms=rooms)
+        response_data = {"message": "Success"}
+        return jsonify(response_data)
+
+def find_or_create_room(room_name):
+    try:
+        twilio_client.video.v1.rooms(room_name).fetch()
+    except twilio.base.exceptions.TwilioRestException:
+        twilio_client.video.v1.rooms.create(unique_name=room_name, type="go")
+
+
+def get_access_token(room_name):
+    access_token = twilio.jwt.access_token.AccessToken(
+        account_sid, api_key, api_secret, identity=uuid.uuid4().int
+    )
+    video_grant = twilio.jwt.access_token.grants.VideoGrant(room=room_name)
+    access_token.add_grant(video_grant)
+    return access_token
+
+@app.route("/join-room", methods=["POST"])
+def join_room():
+    room_name = request.json.get("room_name")
+    find_or_create_room(room_name)
+    access_token = get_access_token(room_name)
+    return {"token": access_token.to_jwt()}
+
 
 @app.route("/publish")
 def publish():

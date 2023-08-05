@@ -5,41 +5,46 @@
 {% endblock %}
 
 {% block main %}
+<script src="https://media.twiliocdn.com/sdk/js/video/releases/2.17.1/twilio-video.min.js"></script>
 
-<form action="/call" method="post">
-    <div class="mb-3 mt-3">
-        <input autocomplete="on" autofocus class="form-control mx-auto w-auto" id="room_name" name="room_name" placeholder="Enter room name" type="text">
+<div class="container" id="container">
+    <div class="box" id="box">
+      <form id="room-name-form" method="post" action="/">
+          <input name="room-name-input" id="room-name-input" class="input-group-text mx-auto p-2" placeholder="Create or join room">
+          <br>
+          <input name="username" id="username" class="input-group-text mx-auto p-2" placeholder="Username">
+          <br>
+          <button type="submit" class="btn btn-primary">Join Room</button>
+      </form>
     </div>
-    <div class="mb-3 mt-3">
-        <input autocomplete="on" autofocus class="form-control mx-auto w-auto" id="hostname" name="hostname" placeholder="Enter your name" type="text">
-    </div>
-    <div class="text-center">
-        <button class="btn btn-primary" type="submit">Create</button>
-    </div>
-</form>
+  </div>
+  <div id="video-container"></div>
+  <script src="static/main.js"></script>
 
-<table class="table table-borderless myTable">
-    <thead class="thead-dark">
-    <tr>
-        <th scope="col">Expert</th>
-        <th scope="col">Room Name</th>
-        <th scope="col">Elapsed time (maybe)</th>
-    </tr>
-    </thead>
-    <tbody>
-        {% for room in rooms %}
-            <tr>
-                <td>
-                    {{ room["host_name"] }}
-                </td>
-                <td>
-                    {{ room["room_name"] }}
-                </td>
-                <td>
-                    0
-                </td>
-            </tr>
-        {% endfor %}
-    </tbody>
-</table>
+<div id="myTableDiv">
+    <table id="myTable" class="table table-borderless">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">Expert</th>
+            <th scope="col">Room Name</th>
+            <th scope="col">Elapsed time (maybe)</th>
+        </tr>
+        </thead>
+        <tbody>
+            {% for room in rooms %}
+                <tr>
+                    <td>
+                        {{ room["host_name"] }}
+                    </td>
+                    <td>
+                        {{ room["room_name"] }}
+                    </td>
+                    <td>
+                        0
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
 {% endblock %}
