@@ -7,7 +7,7 @@
 {% block main %}
 <script src="https://media.twiliocdn.com/sdk/js/video/releases/2.17.1/twilio-video.min.js"></script>
 
-<div class="container" id="container">
+<div class="container justify-content-center" id="container">
     <div class="box" id="box">
       <form id="room-name-form" method="post" action="/">
           <input name="room-name-input" id="room-name-input" class="input-group-text mx-auto p-2" placeholder="Create or join room">
@@ -18,8 +18,9 @@
       </form>
     </div>
   </div>
-  <div id="video-container"></div>
-  <script src="static/main.js"></script>
+
+<div id="video-container"> </div>
+<script src="static/main.js"></script>
 
 <div id="myTableDiv">
     <table id="myTable" class="table table-borderless">
