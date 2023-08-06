@@ -150,7 +150,10 @@ def call():
         room_name = request.form.get("room-name-input")
         hostname = request.form.get("username")
         rows = db.execute("SELECT * FROM users WHERE role = ? AND id = ?", "expert", session["user_id"])
-        db.execute("INSERT INTO rooms (room_name, host_name, user_id) VALUES (?, ?, ?)", room_name, hostname, session["user_id"])
+        if len(rows) == 0:
+            return apology("Not an expert, Forbidden", 403)
+        else:
+            db.execute("INSERT INTO rooms (room_name, host_name, user_id) VALUES (?, ?, ?)", room_name, hostname, session["user_id"])
 
         rooms = db.execute("SELECT * FROM rooms ORDER BY host_name")
         response_data = {"message": "Success"}
