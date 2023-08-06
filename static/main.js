@@ -69,6 +69,66 @@ const startRoom = async (event) => {
   room.on("participantDisconnected", handleDisconnectedParticipant);
   window.addEventListener("pagehide", () => room.disconnect());
   window.addEventListener("beforeunload", () => room.disconnect());
+
+  // Function to disconnect from the room
+const disconnectFromRoom = () => {
+  // Disconnect the room
+  if (room) {
+    room.disconnect();
+    handleDisconnectedParticipant(room.localParticipant)
+    window.location.href = "/";
+  }
+};
+
+const muteAudio = () => {
+  // closes audio track 
+
+  if (muteAudioButton.classList.contains("muted")) {
+    room.localParticipant.audioTracks.forEach(track => {
+      track.track.enable();
+    });
+
+    muteAudioButton.innerHTML = "Mute Audio";
+    muteAudioButton.classList.remove("muted");
+  }
+  else {
+    room.localParticipant.audioTracks.forEach(track => {
+      track.track.disable();
+    });
+
+    muteAudioButton.innerHTML = "Unmute Audio";
+    muteAudioButton.classList.add("muted");
+  }
+};
+
+const muteVideo = () => {
+  // closes video track
+  if (muteVideoButton.classList.contains("muted")) {
+    room.localParticipant.videoTracks.forEach(track => {
+      track.track.enable();
+    });
+
+    muteVideoButton.innerHTML = "Mute Video";
+    muteVideoButton.classList.remove("muted");
+  }
+  else {
+    room.localParticipant.videoTracks.forEach(track => {
+      track.track.disable();
+    });
+
+    muteVideoButton.innerHTML = "Unmute Video";
+    muteVideoButton.classList.add("muted");
+  }
+};
+
+const disconnectButton = document.getElementById("disconnect-button");
+disconnectButton.addEventListener("click", disconnectFromRoom);
+
+const muteAudioButton = document.getElementById("audio-button");
+muteAudioButton.addEventListener("click", muteAudio);
+
+const muteVideoButton = document.getElementById("video-button");
+muteVideoButton.addEventListener("click", muteVideo);
 };
 
 const handleConnectedParticipant = (participant, room) => {
