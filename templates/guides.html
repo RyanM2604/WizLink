@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Guides
+{% endblock %}
+
+{% block main %}
+    <body>
+        {% for guide in guides %}
+            <h1>{{ guide.title }}</h1>
+            <p>By {{ guide.author }}, posted on {{ guide.date_posted }}</p>
+            <p>{{ guide.content }}</p>
+        {% endfor %}
+    </body> 
+{% endblock %}
