@@ -157,6 +157,9 @@ def call():
         else:
             db.execute("INSERT INTO rooms (room_name, host_name, user_id) VALUES (?, ?, ?)", room_name, hostname, session["user_id"])
 
+        current = db.execute("SELECT points FROM users WHERE id = ?", session["user_id"])[0]["points"]
+        db.execute("UPDATE users SET points = ? WHERE id = ?", (current + 10), session["user_id"])
+
         rooms = db.execute("SELECT * FROM rooms ORDER BY host_name")
         response_data = {"message": "Success"}
         return jsonify(response_data)
