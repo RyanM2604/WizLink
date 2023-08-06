@@ -1,0 +1,19 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Guides
+{% endblock %}
+
+{% block main %}
+<form action="/publish" method="post">
+    <div class="mb-3 mt-3">
+        <input autocomplete="off" autofocus class="form-control mx-auto w-auto" id="title" name="title" placeholder="Topic" type="text">
+    </div>
+    <div class="mb-3">
+        <input class="form-control mx-auto w-auto" id="content" name="content" placeholder="Start typing here..." type="text">
+    </div>
+    <div class="text-center">
+        <button class="btn btn-primary" type="submit">Post</button>
+    </div>
+</form>
+{% endblock %}

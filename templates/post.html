@@ -1,0 +1,19 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Posts
+{% endblock %}
+
+{% block main %}
+<div>
+    <body> 
+        {% for item in post %}
+        <div class="post">
+            <h1>{{ item.title }}</h1>
+            <p>By {{ item.author }}, posted on {{ item.time }}</p>
+            <p>{{ item.content }}</p>
+        </div>
+    {% endfor %}
+    </body>
+</div>
+{% endblock %}

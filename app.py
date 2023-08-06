@@ -1,17 +1,18 @@
 import os
 import uuid  # for generating random user id values
 
-import twilio.jwt.access_token
-import twilio.jwt.access_token.grants
-import twilio.rest
-from dotenv import load_dotenv
+from datetime import datetime, timezone
 from cs50 import SQL
-import datetime
-from flask import Flask, flash, redirect, render_template, request, session, jsonify
+from dotenv import load_dotenv
+from flask import Flask, flash, redirect, render_template, request, session, jsonify, url_for
 from flask_session import Session
+from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import check_password_hash, generate_password_hash
 from functools import wraps
 from email_validator import validate_email, EmailNotValidError
+import twilio.jwt.access_token
+import twilio.jwt.access_token.grants
+import twilio.rest
 
 # App object config
 app = Flask(__name__)
@@ -33,7 +34,13 @@ app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
 
 # Database config with cs50 library
-db = SQL("sqlite:///main.db")  # Change this
+db = SQL("sqlite:///main.db") 
+
+
+app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///main.db"
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+dba = SQLAlchemy(app)
 
 def login_required(f):
     @wraps(f)
@@ -181,20 +188,39 @@ def join_room():
     access_token = get_access_token(room_name)
     return {"token": access_token.to_jwt()}
 
-guide = [
-    {
-        "author": "Siddharth",
-        "title": "How to do a pushup",
-        "content": "Pushups are a great way to build upper body strength and can strengthen your lower back and core. By positioning your body correctly and incorporating a few variations, you can challenge your entire upper body and work your muscles in new ways.",
-        "date_posted": "April 20, 2021"
-    }
-]
-
-@app.route("/publish")
+@app.route("/publish", methods=["GET", "POST"])
 def publish():
-    return render_template("guides.html", guide=guide)
+    if request.method == "GET":
+        return render_template("publish.html")
+    elif request.method == "POST":
+        # Getting form variables
+        title = request.form.get("title")
+        content = request.form.get("content")
+        user_id = db.execute("SELECT id FROM users WHERE id = ?", session["user_id"])
+        author = db.execute("SELECT username FROM users WHERE id = ?", user_id[0]["id"])
+        time_posted = datetime.now().strftime("%d/%m/%Y")
 
-@app.route("/leaderboard") 
+        if not title:
+            return apology("must provide title", 400)
+        elif not content:
+            return apology("must provide content", 400)
+        else: 
+            # Entering a new post in database
+            db.execute("INSERT INTO posts (user_id, time, author, title, content) VALUES (?, ?, ?, ?, ?)", user_id[0]["id"], time_posted, author[0]["username"], title, content)
+            flash('posted successfully')
+            return redirect("/guides")
+
+@app.route("/guides")
+def guides():
+    posts_list = db.execute("SELECT * FROM posts")
+    return render_template('guides.html', guides = posts_list)
+
+@app.route("/post/<pid>")
+def post(pid):
+    guide = db.execute("SELECT * FROM posts WHERE post_id = ?", pid)
+    return render_template("post.html", post = guide)
+
+@app.route("/leaderboard")
 def leaderboard():
     return apology("Under Construction!", 403)
 

@@ -5,11 +5,12 @@
 {% endblock %}
 
 {% block main %}
-    <body>
+    <div>
         {% for guide in guides %}
-            <h1>{{ guide.title }}</h1>
-            <p>By {{ guide.author }}, posted on {{ guide.date_posted }}</p>
-            <p>{{ guide.content }}</p>
+            <div class="guides">
+                <a href="/post/{{guide.post_id}}">{{ guide.title }}</a>
+                <p>By {{ guide.author }}, posted on {{ guide.time }}</p>
+            </div>
         {% endfor %}
-    </body> 
+    </div>
 {% endblock %}
