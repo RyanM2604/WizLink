@@ -208,7 +208,8 @@ def publish():
 
 @app.route("/leaderboard") 
 def leaderboard():
-    return apology("Under Construction!", 403)
+    rows = db.execute("SELECT * FROM users ORDER BY points DESC LIMIT 10")
+    return render_template("leaderboard.html", rows=rows)
 
 @app.route("/awards")
 def awards():

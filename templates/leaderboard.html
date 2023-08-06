@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Leaderboard
+{% endblock %}
+
+{% block main %}
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Name</th>
+        <th scope="col">Points</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for i in range(10) %}
+            {% if i < rows|length %}
+                <tr>
+                    <th scope="row"> {{ i+1 }} </th>
+                    <td> {{ rows[i]["username"] }} </td>
+                    <td> {{ rows[i]["points"] }} </td>
+                </tr>
+            {% endif %}
+        {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}
