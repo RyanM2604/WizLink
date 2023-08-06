@@ -1,19 +1,14 @@
-const room_name = document.getElementById("room-name-input")
-const hostname = document.getElementById("username")
 const form = document.getElementById("room-name-form");
-const box = document.getElementById("box");
 const roomNameInput = document.getElementById("room-name-input");
 const container = document.getElementById("video-container");
-let num_of_participants = 0;
+const table = document.getElementById("myTable");
+const box = document.getElementById("box");
+const body = document.body;
 
 const startRoom = async (event) => {
-  num_of_participants += 1;
-  console.log("working");
-  //Increments number of participants
-  num_of_participants += 1;
-  // prevents losing the session ID on submission
+  // prevent a page reload when a user submits the form
   event.preventDefault();
-  // hide the join form when submitted
+  // hide the join form
 
   // Gleans form data to be passed into post method
   const form = event.target;
@@ -46,10 +41,12 @@ const startRoom = async (event) => {
   box.style.display = "none";
   const tableDiv = document.getElementById("myTableDiv");
   tableDiv.style.display = "none";
+  body.style.backgroundColor = "black"
 
   // retrieve the room name
   const roomName = roomNameInput.value;
-  
+
+  // fetch an Access Token from the join-room route
   const response = await fetch("/join-room", {
     method: "POST",
     headers: {
@@ -60,55 +57,67 @@ const startRoom = async (event) => {
   });
   const { token } = await response.json();
 
+  // join the video room with the token
   const room = await joinVideoRoom(roomName, token);
+  
+  // render the local and remote participants' video and audio tracks
+  handleConnectedParticipant(room.localParticipant, room);
+  room.participants.forEach((participant) => handleConnectedParticipant(participant, room));
+  room.on("participantConnected", (participant) => handleConnectedParticipant(participant, room));
 
-  handleConnectedParticipant(room.localParticipant);
-  room.participants.forEach(handleConnectedParticipant);
-  room.on("participantConnected", handleConnectedParticipant);
-
+  // handle cleanup when a participant disconnects
   room.on("participantDisconnected", handleDisconnectedParticipant);
   window.addEventListener("pagehide", () => room.disconnect());
   window.addEventListener("beforeunload", () => room.disconnect());
 };
 
-const handleConnectedParticipant = (participant) => {
-
-  const participantCollection = document.createElement("div");
-  participantCollection.setAttribute("id", "collection");
-  container.appendChild(participantCollection);
-
+const handleConnectedParticipant = (participant, room) => {
+  // create a div for this participant's tracks
   const participantDiv = document.createElement("div");
   participantDiv.setAttribute("id", participant.identity);
-  document.getElementById("collection").style.height = "100vh";
-  participantCollection.appendChild(participantDiv);
+  container.appendChild(participantDiv);
 
-  const participantName = document.createElement("div");
-  participantName.innerHTML = document.getElementById("username").value;
-  participantName.setAttribute("id", "participantName1");
-  participantCollection.appendChild(participantName);
+  if (room.participants.size == 1) {
+    const participant = room.participants.values().next().value; // Get the first participant
+    const participantDiv = document.getElementById(participant.identity);
+    if (participantDiv) {
+      participantDiv.classList.add("participant-2-div");
+    }
+  }
 
+  // iterate through the participant's published tracks and
+  // call `handleTrackPublication` on them
   participant.tracks.forEach((trackPublication) => {
     handleTrackPublication(trackPublication, participant);
   });
 
+  // listen for any new track publications
   participant.on("trackPublished", handleTrackPublication);
 };
 
 const handleTrackPublication = (trackPublication, participant) => {
   function displayTrack(track) {
+    // append this track to the participant's div and render it on the page
     const participantDiv = document.getElementById(participant.identity);
+    // track.attach creates an HTMLVideoElement or HTMLAudioElement
+    // (depending on the type of track) and adds the video or audio stream
     participantDiv.append(track.attach());
   }
 
+  // check if the trackPublication contains a `track` attribute. If it does,
+  // we are subscribed to this track. If not, we are not subscribed.
   if (trackPublication.track) {
     displayTrack(trackPublication.track);
   }
 
+  // listen for any new subscriptions to this track publication
   trackPublication.on("subscribed", displayTrack);
 };
 
 const handleDisconnectedParticipant = (participant) => {
+  // stop listening for this participant
   participant.removeAllListeners();
+  // remove this participant's div from the page
   const participantDiv = document.getElementById(participant.identity);
   participantDiv.remove();
 };
