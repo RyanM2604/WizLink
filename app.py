@@ -149,8 +149,13 @@ def call():
     elif request.method == "POST":
         room_name = request.form.get("room-name-input")
         hostname = request.form.get("username")
-        rows = db.execute("SELECT * FROM users WHERE role = ? AND id = ?", "expert", session["user_id"])
-        db.execute("INSERT INTO rooms (room_name, host_name, user_id) VALUES (?, ?, ?)", room_name, hostname, session["user_id"])
+        rows = db.execute("SELECT * FROM users WHERE id = ? AND role = ?", session["user_id"], 'Expert')
+        print("Here is the row")
+        print(rows)
+        if len(rows) == 0:
+            pass
+        else:
+            db.execute("INSERT INTO rooms (room_name, host_name, user_id) VALUES (?, ?, ?)", room_name, hostname, session["user_id"])
 
         rooms = db.execute("SELECT * FROM rooms ORDER BY host_name")
         response_data = {"message": "Success"}
