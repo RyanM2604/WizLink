@@ -181,12 +181,20 @@ def join_room():
     access_token = get_access_token(room_name)
     return {"token": access_token.to_jwt()}
 
+guide = [
+    {
+        "author": "Siddharth",
+        "title": "How to do a pushup",
+        "content": "Pushups are a great way to build upper body strength and can strengthen your lower back and core. By positioning your body correctly and incorporating a few variations, you can challenge your entire upper body and work your muscles in new ways.",
+        "date_posted": "April 20, 2021"
+    }
+]
 
 @app.route("/publish")
 def publish():
-    return apology("Under Construction!", 403)
+    return render_template("guides.html", guide=guide)
 
-@app.route("/leaderboard")
+@app.route("/leaderboard") 
 def leaderboard():
     return apology("Under Construction!", 403)
 
