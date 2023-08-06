@@ -6,6 +6,8 @@ const box = document.getElementById("box");
 const body = document.body;
 const utilityButtonsDiv = document.getElementById("utility-buttons")
 
+let participantIdentities = [];
+
 const startRoom = async (event) => {
   // prevent a page reload when a user submits the form
   event.preventDefault();
@@ -141,14 +143,6 @@ const handleConnectedParticipant = (participant, room) => {
   participantDiv.setAttribute("id", participant.identity);
   container.appendChild(participantDiv);
 
-  if (room.participants.size == 1) {
-    const participant = room.participants.values().next().value; // Get the first participant
-    const participantDiv = document.getElementById(participant.identity);
-    if (participantDiv) {
-      participantDiv.classList.add("participant-2-div");
-    }
-  }
-
   // iterate through the participant's published tracks and
   // call `handleTrackPublication` on them
   participant.tracks.forEach((trackPublication) => {
@@ -157,6 +151,23 @@ const handleConnectedParticipant = (participant, room) => {
 
   // listen for any new track publications
   participant.on("trackPublished", handleTrackPublication);
+
+  console.log(`${participant.identity} has joined the room.`);
+
+  participantIdentities.push(participant.identity);
+
+  console.log(participantIdentities);
+
+  if (participantIdentities.length == 2) {
+    const participantDiv1 = document.getElementById(participantIdentities[0]);
+    if (participantDiv1) {
+      participantDiv1.classList.add("participant-2-div");
+    }
+    const participantDiv2 = document.getElementById(participantIdentities[1]);
+    if (participantDiv2) {
+      participantDiv2.classList.add("participant-1-div");
+    }
+  }
 };
 
 const handleTrackPublication = (trackPublication, participant) => {
