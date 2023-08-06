@@ -63,3 +63,19 @@ margin-right: 1rem;
     right: 10px;
     border-radius: 10%;
 }
+
+#utility-buttons {
+    display: none;
+}
+
+#audio-button-img {
+    height: 25px;
+}
+
+#video-button-img {
+    height: 25px;
+}
+
+#endcall-button-img {
+    height: 25px;
+}

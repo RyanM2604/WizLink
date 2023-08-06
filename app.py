@@ -178,6 +178,16 @@ def join_room():
     access_token = get_access_token(room_name)
     return {"token": access_token.to_jwt()}
 
+@app.route("/delete-room", methods=["POST"])
+def delete_room():
+    room_name = request.json.get("roomName")
+    print(f"Received request to delete room: {room_name}")
+    
+    db.execute("DELETE FROM rooms WHERE room_name = ?", room_name)
+    print(f"Deleted room: {room_name}")
+    json_response = {"deletion": "Success"}
+    return jsonify(json_response)
+
 guide = [
     {
         "author": "Siddharth",

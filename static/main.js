@@ -4,6 +4,7 @@ const container = document.getElementById("video-container");
 const table = document.getElementById("myTable");
 const box = document.getElementById("box");
 const body = document.body;
+const utilityButtonsDiv = document.getElementById("utility-buttons")
 
 const startRoom = async (event) => {
   // prevent a page reload when a user submits the form
@@ -41,7 +42,8 @@ const startRoom = async (event) => {
   box.style.display = "none";
   const tableDiv = document.getElementById("myTableDiv");
   tableDiv.style.display = "none";
-  body.style.backgroundColor = "black"
+  body.style.backgroundColor = "black";
+  utilityButtonsDiv.style.display = "block";
 
   // retrieve the room name
   const roomName = roomNameInput.value;
@@ -75,7 +77,7 @@ const disconnectFromRoom = () => {
   // Disconnect the room
   if (room) {
     room.disconnect();
-    handleDisconnectedParticipant(room.localParticipant)
+    handleDisconnectedParticipant(room.localParticipant, room)
     window.location.href = "/";
   }
 };
@@ -88,7 +90,7 @@ const muteAudio = () => {
       track.track.enable();
     });
 
-    muteAudioButton.innerHTML = "Mute Audio";
+    muteAudioButtonImage.src = "static/unmute-audio.png";
     muteAudioButton.classList.remove("muted");
   }
   else {
@@ -96,7 +98,7 @@ const muteAudio = () => {
       track.track.disable();
     });
 
-    muteAudioButton.innerHTML = "Unmute Audio";
+    muteAudioButtonImage.src = "static/mute-audio.png";
     muteAudioButton.classList.add("muted");
   }
 };
@@ -108,7 +110,7 @@ const muteVideo = () => {
       track.track.enable();
     });
 
-    muteVideoButton.innerHTML = "Mute Video";
+    muteVideoButtonImage.src = "static/mute-video.png";
     muteVideoButton.classList.remove("muted");
   }
   else {
@@ -116,7 +118,7 @@ const muteVideo = () => {
       track.track.disable();
     });
 
-    muteVideoButton.innerHTML = "Unmute Video";
+    muteVideoButtonImage.src = "static/unmute-video.png";
     muteVideoButton.classList.add("muted");
   }
 };
@@ -125,9 +127,11 @@ const disconnectButton = document.getElementById("disconnect-button");
 disconnectButton.addEventListener("click", disconnectFromRoom);
 
 const muteAudioButton = document.getElementById("audio-button");
+const muteAudioButtonImage = document.getElementById("audio-button-img");
 muteAudioButton.addEventListener("click", muteAudio);
 
 const muteVideoButton = document.getElementById("video-button");
+const muteVideoButtonImage = document.getElementById("video-button-img");
 muteVideoButton.addEventListener("click", muteVideo);
 };
 
@@ -174,12 +178,34 @@ const handleTrackPublication = (trackPublication, participant) => {
   trackPublication.on("subscribed", displayTrack);
 };
 
-const handleDisconnectedParticipant = (participant) => {
+const handleDisconnectedParticipant = async (participant, room) => {
   // stop listening for this participant
   participant.removeAllListeners();
   // remove this participant's div from the page
   const participantDiv = document.getElementById(participant.identity);
   participantDiv.remove();
+
+  if (room.participants.size == 0) {
+
+    try {
+      const response = await fetch('/delete-room', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ roomName: room.name }), // Send the room name to be deleted
+      });
+
+      if (response.ok) {
+        console.log('Room deleted successfully');
+      } else {
+        console.error('Failed to delete room');
+      }
+    }
+    catch (error) {
+      console.error('Error:', error);
+    }
+  }
 };
 
 const joinVideoRoom = async (roomName, token) => {
