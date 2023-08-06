@@ -62,4 +62,29 @@ margin-right: 1rem;
     bottom: 0px;
     right: 10px;
     border-radius: 10%;
+    z-index: 3;
+}
+
+#utility-buttons {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    left: calc(50vw - 100px);
+    z-index: 2;
+}
+
+#audio-button-img {
+    height: 25px;
+}
+
+#video-button-img {
+    height: 25px;
+}
+
+#endcall-button-img {
+    height: 25px;
+}
+
+.awards{
+    width: 150px;
 }

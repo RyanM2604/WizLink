@@ -4,6 +4,9 @@ const container = document.getElementById("video-container");
 const table = document.getElementById("myTable");
 const box = document.getElementById("box");
 const body = document.body;
+const utilityButtonsDiv = document.getElementById("utility-buttons")
+
+let participantIdentities = [];
 
 const startRoom = async (event) => {
   // prevent a page reload when a user submits the form
@@ -41,7 +44,8 @@ const startRoom = async (event) => {
   box.style.display = "none";
   const tableDiv = document.getElementById("myTableDiv");
   tableDiv.style.display = "none";
-  body.style.backgroundColor = "black"
+  body.style.backgroundColor = "black";
+  utilityButtonsDiv.style.display = "block";
 
   // retrieve the room name
   const roomName = roomNameInput.value;
@@ -69,6 +73,68 @@ const startRoom = async (event) => {
   room.on("participantDisconnected", handleDisconnectedParticipant);
   window.addEventListener("pagehide", () => room.disconnect());
   window.addEventListener("beforeunload", () => room.disconnect());
+
+  // Function to disconnect from the room
+const disconnectFromRoom = () => {
+  // Disconnect the room
+  if (room) {
+    room.disconnect();
+    handleDisconnectedParticipant(room.localParticipant, room)
+    window.location.href = "/";
+  }
+};
+
+const muteAudio = () => {
+  // closes audio track 
+
+  if (muteAudioButton.classList.contains("muted")) {
+    room.localParticipant.audioTracks.forEach(track => {
+      track.track.enable();
+    });
+
+    muteAudioButtonImage.src = "static/unmute-audio.png";
+    muteAudioButton.classList.remove("muted");
+  }
+  else {
+    room.localParticipant.audioTracks.forEach(track => {
+      track.track.disable();
+    });
+
+    muteAudioButtonImage.src = "static/mute-audio.png";
+    muteAudioButton.classList.add("muted");
+  }
+};
+
+const muteVideo = () => {
+  // closes video track
+  if (muteVideoButton.classList.contains("muted")) {
+    room.localParticipant.videoTracks.forEach(track => {
+      track.track.enable();
+    });
+
+    muteVideoButtonImage.src = "static/mute-video.png";
+    muteVideoButton.classList.remove("muted");
+  }
+  else {
+    room.localParticipant.videoTracks.forEach(track => {
+      track.track.disable();
+    });
+
+    muteVideoButtonImage.src = "static/unmute-video.png";
+    muteVideoButton.classList.add("muted");
+  }
+};
+
+const disconnectButton = document.getElementById("disconnect-button");
+disconnectButton.addEventListener("click", disconnectFromRoom);
+
+const muteAudioButton = document.getElementById("audio-button");
+const muteAudioButtonImage = document.getElementById("audio-button-img");
+muteAudioButton.addEventListener("click", muteAudio);
+
+const muteVideoButton = document.getElementById("video-button");
+const muteVideoButtonImage = document.getElementById("video-button-img");
+muteVideoButton.addEventListener("click", muteVideo);
 };
 
 const handleConnectedParticipant = (participant, room) => {
@@ -76,14 +142,6 @@ const handleConnectedParticipant = (participant, room) => {
   const participantDiv = document.createElement("div");
   participantDiv.setAttribute("id", participant.identity);
   container.appendChild(participantDiv);
-
-  if (room.participants.size == 1) {
-    const participant = room.participants.values().next().value; // Get the first participant
-    const participantDiv = document.getElementById(participant.identity);
-    if (participantDiv) {
-      participantDiv.classList.add("participant-2-div");
-    }
-  }
 
   // iterate through the participant's published tracks and
   // call `handleTrackPublication` on them
@@ -93,6 +151,23 @@ const handleConnectedParticipant = (participant, room) => {
 
   // listen for any new track publications
   participant.on("trackPublished", handleTrackPublication);
+
+  console.log(`${participant.identity} has joined the room.`);
+
+  participantIdentities.push(participant.identity);
+
+  console.log(participantIdentities);
+
+  if (participantIdentities.length == 2) {
+    const participantDiv1 = document.getElementById(participantIdentities[0]);
+    if (participantDiv1) {
+      participantDiv1.classList.add("participant-2-div");
+    }
+    const participantDiv2 = document.getElementById(participantIdentities[1]);
+    if (participantDiv2) {
+      participantDiv2.classList.add("participant-1-div");
+    }
+  }
 };
 
 const handleTrackPublication = (trackPublication, participant) => {
@@ -114,12 +189,34 @@ const handleTrackPublication = (trackPublication, participant) => {
   trackPublication.on("subscribed", displayTrack);
 };
 
-const handleDisconnectedParticipant = (participant) => {
+const handleDisconnectedParticipant = async (participant, room) => {
   // stop listening for this participant
   participant.removeAllListeners();
   // remove this participant's div from the page
   const participantDiv = document.getElementById(participant.identity);
   participantDiv.remove();
+
+  if (room.participants.size == 0) {
+
+    try {
+      const response = await fetch('/delete-room', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ roomName: room.name }), // Send the room name to be deleted
+      });
+
+      if (response.ok) {
+        console.log('Room deleted successfully');
+      } else {
+        console.error('Failed to delete room');
+      }
+    }
+    catch (error) {
+      console.error('Error:', error);
+    }
+  }
 };
 
 const joinVideoRoom = async (roomName, token) => {

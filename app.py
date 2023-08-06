@@ -133,7 +133,7 @@ def login():
             return apology("invalid username and/or password", 403)
 
         session["user_id"] = rows[0]["id"]
-        return redirect("/home")
+        return redirect("/")
     else:
         return render_template("login.html")
 
@@ -156,11 +156,16 @@ def call():
     elif request.method == "POST":
         room_name = request.form.get("room-name-input")
         hostname = request.form.get("username")
-        rows = db.execute("SELECT * FROM users WHERE role = ? AND id = ?", "expert", session["user_id"])
+        rows = db.execute("SELECT * FROM users WHERE id = ? AND role = ?", session["user_id"], 'Expert')
+        print("Here is the row")
+        print(rows)
         if len(rows) == 0:
-            return apology("Not an expert, Forbidden", 403)
+            pass
         else:
             db.execute("INSERT INTO rooms (room_name, host_name, user_id) VALUES (?, ?, ?)", room_name, hostname, session["user_id"])
+
+        current = db.execute("SELECT points FROM users WHERE id = ?", session["user_id"])[0]["points"]
+        db.execute("UPDATE users SET points = ? WHERE id = ?", (current + 10), session["user_id"])
 
         rooms = db.execute("SELECT * FROM rooms ORDER BY host_name")
         response_data = {"message": "Success"}
@@ -188,7 +193,17 @@ def join_room():
     access_token = get_access_token(room_name)
     return {"token": access_token.to_jwt()}
 
-@app.route("/publish", methods=["GET", "POST"])
+@app.route("/delete-room", methods=["POST"])
+def delete_room():
+    room_name = request.json.get("roomName")
+    print(f"Received request to delete room: {room_name}")
+    
+    db.execute("DELETE FROM rooms WHERE room_name = ?", room_name)
+    print(f"Deleted room: {room_name}")
+    json_response = {"deletion": "Success"}
+    return jsonify(json_response)
+
+@app.route("/publish")
 def publish():
     if request.method == "GET":
         return render_template("publish.html")
@@ -222,8 +237,10 @@ def post(pid):
 
 @app.route("/leaderboard")
 def leaderboard():
-    return apology("Under Construction!", 403)
+    rows = db.execute("SELECT * FROM users ORDER BY points DESC LIMIT 10")
+    return render_template("leaderboard.html", rows=rows)
 
 @app.route("/awards")
 def awards():
-    return apology("Under Construction!", 403)
+    points = db.execute("SELECT points FROM users WHERE id = ?", session["user_id"])[0]["points"]
+    return render_template("awards.html", points=points)
