@@ -1,0 +1,58 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Awards
+{% endblock %}
+
+{% block main %}
+    <div class="d-flex p-2">
+        <div class="award col-4 justify-content-center">
+            <img src="static/award-grey.png" id="award1">
+            <h3>
+                Award 1
+            </h3>
+        </div>
+        <div class="award col-4 justify-content-center">
+            <img src="static/award-grey.png" id="award2">
+            <h3>
+                Award 2
+            </h3>
+        </div>
+        <div class="award col-4 justify-content-center">
+            <img src="static/award-grey.png" id="award3">
+            <h3>
+                Award 3
+            </h3>
+        </div>
+        <div class="award col-4 justify-content-center">
+            <img src="static/award-grey.png" id="award4">
+            <h3>
+                Award 4
+            </h3>
+        </div>
+    </div>
+
+    <script>
+        // Access the points value from the template
+        var points = {{ points }};
+        
+        // Check the points value and show awards accordingly
+        var award1 = document.getElementById("award1");
+        var award2 = document.getElementById("award2");
+        var award3 = document.getElementById("award3");
+        var award4 = document.getElementById("award4");
+
+        if (points >= 10) {
+            award1.src = "static/award.png";
+        }
+        if (points >= 20) {
+            award2.src = "static/award.png";
+        }
+        if (points >= 30) {
+            award3.src = "static/award.png";
+        }
+        if (points >= 40) {
+            award4.src = "static/award.png";
+        }
+    </script>
+{% endblock %}

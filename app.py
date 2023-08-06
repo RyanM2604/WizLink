@@ -126,7 +126,7 @@ def login():
             return apology("invalid username and/or password", 403)
 
         session["user_id"] = rows[0]["id"]
-        return redirect("/home")
+        return redirect("/")
     else:
         return render_template("login.html")
 
@@ -216,4 +216,5 @@ def leaderboard():
 
 @app.route("/awards")
 def awards():
-    return apology("Under Construction!", 403)
+    points = db.execute("SELECT points FROM users WHERE id = ?", session["user_id"])[0]["points"]
+    return render_template("awards.html", points=points)
