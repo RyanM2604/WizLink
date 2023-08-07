@@ -12,7 +12,8 @@
     <p>read about findings and insights from sessions in guides.</p>
 </div>
 
-    <div>
+<div class="container">
+    <div style="margin-top:30px">
         <div class="row">
             {% for i in range(num_of_rows) %}
                 <a href="/post/{{guides[i].post_id}}" style="width: fit-content; text-decoration:none; color: black;">
@@ -25,4 +26,5 @@
             {% endfor %}
         </div>
     </div>
+</div>
 {% endblock %}

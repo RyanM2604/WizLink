@@ -18,7 +18,12 @@
                 <p>By {{ item.author }}, posted on {{ item.time }}</p>
             </div>
             <div class="container">
-                <p>{{ item.content }}</p>
+                <div class="box_s">
+                    <p>{{ item.content }}</p>
+                </div>
+                <div class="text-center">
+                    <button class="button_s" onclick="history.back()">back</button>
+                </div>
             </div>
         </div>
     {% endfor %}
