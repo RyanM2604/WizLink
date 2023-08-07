@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block main %}
-<div class="gradient-container"></div>
+<div class="gradient-container">
         <div class="container" id="centering">
         <!-- Page contents -->
             <div id="welcome-container" style="height: 500px; display: flex; flex-direction: column; justify-content: center; align-items: center;">
@@ -71,6 +71,7 @@
                 width: inherit;
                 height: inherit;
                 position: absolute;
+                margin-top: 400px;
                 left: 0%;
                 top: 0%;
                 animation: primary 5s linear infinite;
@@ -153,9 +154,6 @@
                     opacity: 1;
                 }
             }
-            .scroll-parent {
-                margin-top: 400px;
-            }
         </style>
         <script>
             document.addEventListener("DOMContentLoaded", function () {
@@ -179,8 +177,6 @@
             setTimeout(removeLoadingClass, 4000);
     });
         </script>
-    </body>
-</html>
 {% endblock %}
 
 {% block out_of_container %}
@@ -201,3 +197,4 @@
     </div>
 </div>
 {% endblock %}
+

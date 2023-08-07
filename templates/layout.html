@@ -21,6 +21,7 @@
     <body>
 
       <!-- Navbar -->
+      <div id="nav1">
       <nav class="navbar navbar-expand-lg navbar-dark navbar-custom nav-fill w-100">
         <div class="container d-flex justify-content-between">
           <div>
@@ -59,6 +60,7 @@
           </div>
         </div>
       </nav>
+      </div>
 
         {% block banner_image %}{% endblock %}
 
@@ -70,3 +72,27 @@
         {% block out_of_container %}{% endblock %}
     </body>
 </html>
+
+<style>
+  #nav1{
+    position: fixed; /* Set the navbar to fixed position */
+    top: 0; /* Position the navbar at the top of the page */
+    width: 100%; /* Full width */
+    transition: top 0.5s;
+  }
+</style>
+
+<script>
+var lastScrollTop;
+navbar = document.getElementById('nav1');
+window.addEventListener('scroll',function(){
+var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+if(scrollTop > lastScrollTop){
+navbar.style.top='-80px';
+}
+else{
+navbar.style.top='0';
+}
+lastScrollTop = scrollTop;
+});
+</script>
