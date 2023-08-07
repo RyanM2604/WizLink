@@ -5,30 +5,44 @@
 {% endblock %}
 
 {% block main %}
-    <div class="d-flex p-2">
-        <div class="award col-4 justify-content-center">
-            <img src="static/award-grey.png" id="award1">
-            <h3>
-                Award 1
-            </h3>
-        </div>
-        <div class="award col-4 justify-content-center">
-            <img src="static/award-grey.png" id="award2">
-            <h3>
-                Award 2
-            </h3>
-        </div>
-        <div class="award col-4 justify-content-center">
-            <img src="static/award-grey.png" id="award3">
-            <h3>
-                Award 3
-            </h3>
-        </div>
-        <div class="award col-4 justify-content-center">
-            <img src="static/award-grey.png" id="award4">
-            <h3>
-                Award 4
-            </h3>
+    <div class="container awards">
+        <div class="row">
+            <div class="col-md-3">
+                <img src="static/award-grey.png" id="award1">
+                <p style="text-align: center;">
+                    Earn 100 points by Hosting a call, Answering a call, or Publishing
+                </p>
+                <h3 style="text-align: center;">
+                    Descartes
+                </h3>
+            </div>
+            <div class="col-md-3">
+                <img src="static/award-grey.png" id="award2">
+                <p style="text-align: center;">
+                    Earn 200 points by Hosting a call, Answering a call, or Publishing
+                </p>
+                <h3 style="text-align: center;">
+                    Pascal
+                </h3>
+            </div>
+            <div class="col-md-3">
+                <img src="static/award-grey.png" id="award3">
+                <p style="text-align: center;">
+                    Earn 300 points by Hosting a call, Answering a call, or Publishing
+                </p>
+                <h3 style="text-align: center;">
+                    Plato
+                </h3>
+            </div>
+            <div class="col-md-3">
+                <img src="static/award-grey.png" id="award4">
+                <p style="text-align: center;">
+                    Earn 400 points by Hosting a call, Answering a call, or Publishing
+                </p>
+                <h3 style="text-align: center;">
+                    Aristole
+                </h3>
+            </div>
         </div>
     </div>
 
@@ -42,17 +56,129 @@
         var award3 = document.getElementById("award3");
         var award4 = document.getElementById("award4");
 
-        if (points >= 10) {
+        if (points >= 100) {
             award1.src = "static/award.png";
         }
-        if (points >= 20) {
+        if (points >= 200) {
             award2.src = "static/award.png";
         }
-        if (points >= 30) {
+        if (points >= 300) {
             award3.src = "static/award.png";
         }
-        if (points >= 40) {
+        if (points >= 400) {
             award4.src = "static/award.png";
         }
+    </script>
+
+<h2 class="myh2" id="myh2"></h2>
+
+<div class="row justify-content-center">
+    <div class="col-sm-8">
+        <canvas id="myChart"></canvas>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-stacked100@1.0.0"></script>
+
+<script>
+    let curr_points = {{ points }};
+    let goal_points = 0;
+
+        document.addEventListener("DOMContentLoaded", function () {
+        var resultElement = document.getElementById("myh2");
+        resultElement.innerHTML = "Your current points: " + curr_points;
+    });
+
+
+    if (curr_points < 100) {
+        goal_points = 100 - curr_points;
+    }
+    else if (curr_points < 200 && curr_points >= 100) {
+        goal_points = 200 - curr_points;
+    }
+    else if (curr_points < 300 && curr_points >= 200) {
+        goal_points = 300 - curr_points;
+    }
+    else if (curr_points < 400 && curr_points >= 300) {
+        goal_points = 400 - curr_points;
+    }
+
+    Chart.register(ChartjsPluginStacked100.default);
+    const data = {
+      labels: [' '],
+      datasets: [{
+        label: 'Current points',
+        data: [curr_points],
+        backgroundColor: [
+          'rgba(170, 255, 0, 0.2)',
+        ],
+        borderColor: [
+          'rgba(170, 255, 0, 1)',
+        ],
+        borderWidth: 1,
+        barPercentage: '0.3'
+      },{
+        label: 'Points goal',
+        data: [goal_points],
+        backgroundColor: [
+          'rgba(255, 26, 104, 0.2)',
+        ],
+        borderColor: [
+          'rgba(255, 26, 104, 1)',
+        ],
+        borderWidth: 1,
+        barPercentage: '0.3'
+      }]
+    };
+
+    // config
+    const config = {
+      type: 'bar',
+      data,
+      options: {
+        maintainAspectRatio: false,
+        indexAxis: 'y',
+        plugins: {
+            stacked100: {
+                enable: true,
+            },
+            legend: {
+                display: false
+            }
+        },
+        scales: {
+            x: {
+                display: false,
+                grid: {
+                    drawOnChartArea: false,
+                },
+                ticks: {
+                    display: false,
+                }
+            },
+            y: {
+                display: false,
+                beginAtZero: true,
+                grid: {
+                    drawOnChartArea: false,
+                },
+                ticks: {
+                    display: false,
+                }
+            }
+        }
+      }
+    };
+
+    // render init block
+    const myChart = new Chart(
+      document.getElementById('myChart'),
+      config
+    );
+
+    // Instantly assign Chart.js version
+    const chartVersion = document.getElementById('chartVersion');
+    chartVersion.innerText = Chart.version;
     </script>
 {% endblock %}

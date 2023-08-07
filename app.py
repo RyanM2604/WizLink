@@ -6,7 +6,6 @@ from cs50 import SQL
 from dotenv import load_dotenv
 from flask import Flask, flash, redirect, render_template, request, session, jsonify, url_for
 from flask_session import Session
-from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import check_password_hash, generate_password_hash
 from functools import wraps
 from email_validator import validate_email, EmailNotValidError
@@ -39,8 +38,6 @@ db = SQL("sqlite:///main.db")
 
 app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///main.db"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-
-dba = SQLAlchemy(app)
 
 def login_required(f):
     @wraps(f)
