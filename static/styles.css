@@ -190,9 +190,10 @@ margin-right: 1rem;
     margin-bottom: 30px;
 }
 
-.myh2{
+.header h1{
     text-align: center;
     margin-top: 50px;
+    font-family:"Helvetica Neue", Courier, sans-serif;
 }
 
 .webpage{
