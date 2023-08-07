@@ -1,3 +1,10 @@
+#content {
+    margin-top: 50px;
+    margin-left: 310px;
+    margin-right: 10px;
+    overflow-y: auto;
+}
+
 body
 {
     background-color: #edeff2;
@@ -265,4 +272,20 @@ textarea {
 
 .btn-inf{
     background-color: lightblue;
+}
+
+#spacer{
+    height: 50px;
+}
+
+#gradient-back{
+    background: linear-gradient(-45DEG, #76bbd9, #405e79);
+}
+
+#welcome-container{
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 100%;
+    text-align: center; 
 }
