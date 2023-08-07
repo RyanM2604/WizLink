@@ -5,11 +5,18 @@
 {% endblock %}
 
 {% block main %}
+<div class="header">
+    <h1>
+        <b>points leaderboard</b>
+    </h1>
+    <p>read about findings and insights from sessions in guides.</p>
+</div>
+
     <div>
         <div class="row">
             {% for i in range(num_of_rows) %}
-                <a href="/post/{{guides[i].post_id}}" style="width: 450px; text-decoration:none; color: black;">
-                    <div class="guides box_s">
+                <a href="/post/{{guides[i].post_id}}" style="width: fit-content; text-decoration:none; color: black;">
+                    <div class="guides box_s" style="margin: 10px;">
                         <p class="header" style="font-weight: 800; text-align: left;">{{ guides[i].title }}</p>
                         <p>By {{ guides[i].author }}</p>
                         <p>Posted on {{ guides[i].time }}</p> 

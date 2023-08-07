@@ -5,13 +5,21 @@
 {% endblock %}
 
 {% block main %}
+
+
 <div>
     <body> 
         {% for item in post %}
         <div class="post">
-            <h1>{{ item.title }}</h1>
-            <p>By {{ item.author }}, posted on {{ item.time }}</p>
-            <p>{{ item.content }}</p>
+            <div class="header">
+                <h1>
+                    <b>{{ item.title }}</b>
+                </h1>
+                <p>By {{ item.author }}, posted on {{ item.time }}</p>
+            </div>
+            <div class="container">
+                <p>{{ item.content }}</p>
+            </div>
         </div>
     {% endfor %}
     </body>
