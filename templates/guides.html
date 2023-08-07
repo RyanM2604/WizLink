@@ -6,11 +6,16 @@
 
 {% block main %}
     <div>
-        {% for guide in guides %}
-            <div class="guides">
-                <a href="/post/{{guide.post_id}}">{{ guide.title }}</a>
-                <p>By {{ guide.author }}, posted on {{ guide.time }}</p>
-            </div>
-        {% endfor %}
+        <div class="row">
+            {% for i in range(5) %}
+                <a href="/post/{{guides[i].post_id}}" style="width: 450px; text-decoration:none; color: black;">
+                    <div class="guides box_s">
+                        <p>By {{ guides[i].author }}</p>
+                        <p>Posted on {{ guides[i].time }}</p> 
+                    </div>
+                </a>
+            {% endfor %}
+        </div>
+        </p> 
     </div>
 {% endblock %}

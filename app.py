@@ -12,6 +12,7 @@ from email_validator import validate_email, EmailNotValidError
 import twilio.jwt.access_token
 import twilio.jwt.access_token.grants
 import twilio.rest
+import math
 
 # App object config
 app = Flask(__name__)
@@ -236,7 +237,8 @@ def publish():
 @app.route("/guides")
 def guides():
     posts_list = db.execute("SELECT * FROM posts ORDER BY time DESC")
-    return render_template('guides.html', guides = posts_list)
+    num_of_rows = math.ceil(len(posts_list) / 5)
+    return render_template('guides.html', guides = posts_list, num_of_rows=num_of_rows)
 
 @app.route("/post/<pid>")
 def post(pid):
