@@ -1,6 +1,6 @@
-# expertf
+# wizlink web-app
 
-**expertf** is the official repository for the `wizlink` webapp.
+`expertf` is the official repository of the **wizlink** webapp.
 
 ### version 1.0.0 features
 * 1 on 1 video-enabled expert chat sessions
