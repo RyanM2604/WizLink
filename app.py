@@ -110,8 +110,20 @@ def register():
             rows = db.execute("SELECT * FROM users WHERE username = ?", request.form.get("username"))
             session["user_id"] = rows[0]["id"]
             flash('You were successfully logged in')
-            return redirect("/")
+            return redirect("/tags")
 
+@app.route("/tags", methods=["GET"])
+def tags():
+    if request.method == "GET":
+        return render_template("tags.html")
+
+@app.route("/submit-tags", methods=["POST"])
+def submit_tags():
+    received_data = request.json
+    tags = received_data.get('tags', [])
+
+    db.execute("UPDATE users SET categories = ? WHERE id = ?", [",".join(tags)], session["user_id"])
+    return jsonify({"response": "Tags received successfully"})
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
@@ -153,13 +165,12 @@ def call():
     elif request.method == "POST":
         room_name = request.form.get("room-name-input")
         hostname = request.form.get("username")
+        categories = db.execute("SELECT categories FROM users WHERE id = ?", session["user_id"])[0]["categories"]
         rows = db.execute("SELECT * FROM users WHERE id = ? AND role = ?", session["user_id"], 'Expert')
-        print("Here is the row")
-        print(rows)
         if len(rows) == 0:
             pass
         else:
-            db.execute("INSERT INTO rooms (room_name, host_name, user_id) VALUES (?, ?, ?)", room_name, hostname, session["user_id"])
+            db.execute("INSERT INTO rooms (room_name, host_name, categories, user_id) VALUES (?, ?, ?, ?)", room_name, hostname, categories, session["user_id"])
 
         current = db.execute("SELECT points FROM users WHERE id = ?", session["user_id"])[0]["points"]
         db.execute("UPDATE users SET points = ? WHERE id = ?", (current + 10), session["user_id"])
