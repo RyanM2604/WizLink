@@ -3,6 +3,7 @@ const roomNameInput = document.getElementById("room-name-input");
 const container = document.getElementById("video-container");
 const table = document.getElementById("myTable");
 const box = document.getElementById("box");
+const writing = document.getElementById("writing");
 const body = document.body;
 const utilityButtonsDiv = document.getElementById("utility-buttons")
 
@@ -42,6 +43,7 @@ const startRoom = async (event) => {
 
   form.style.display = "none";
   box.style.display = "none";
+  writing.style.display = "none";
   const tableDiv = document.getElementById("myTableDiv");
   tableDiv.style.display = "none";
   body.style.backgroundColor = "black";
