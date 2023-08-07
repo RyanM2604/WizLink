@@ -211,7 +211,7 @@ def delete_room():
     json_response = {"deletion": "Success"}
     return jsonify(json_response)
 
-@app.route("/publish")
+@app.route("/publish", methods=["GET", "POST"])
 def publish():
     if request.method == "GET":
         return render_template("publish.html")
@@ -235,7 +235,7 @@ def publish():
 
 @app.route("/guides")
 def guides():
-    posts_list = db.execute("SELECT * FROM posts")
+    posts_list = db.execute("SELECT * FROM posts ORDER BY time DESC")
     return render_template('guides.html', guides = posts_list)
 
 @app.route("/post/<pid>")
