@@ -5,15 +5,22 @@
 {% endblock %}
 
 {% block main %}
-<form action="/publish" method="post">
-    <div class="mb-3 mt-3">
-        <input autocomplete="off" autofocus class="form-control mx-auto w-auto" id="title" name="title" placeholder="Topic" type="text">
-    </div>
-    <div class="mb-3">
-        <input class="form-control mx-auto w-auto" id="content" name="content" placeholder="Start typing here..." type="text">
-    </div>
-    <div class="text-center">
-        <button class="btn btn-primary" type="submit">Post</button>
-    </div>
-</form>
+<div class="heading">
+    <h1>
+        <b>create guide</b>
+    </h1>
+</div>
+<div class="box_s" style="width: 100cap;">
+    <form action="/publish" method="post">
+        <div class="mb-3 mt-3">
+            <input autocomplete="off" autofocus class="form-control" id="title" name="title" placeholder="Topic" type="text" required>
+        </div>
+        <div class="mb-3">
+            <textarea class="form-control" id="content" name="content" rows="10" placeholder="Start typing here..." required></textarea>
+        </div>
+        <div class="text-left">
+            <button class="button_s" type="submit">post</button>
+        </div>
+    </form>
+</div>
 {% endblock %}

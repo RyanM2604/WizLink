@@ -1,3 +1,91 @@
+body
+{
+    background-color: #edeff2;
+
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select:none;
+    user-select:none;
+    -o-user-select:none;
+
+    font-family: helvetica;
+    font-weight: 300;
+}
+
+.form_control{
+    font-family: helvetica;
+    font-weight: 300;
+}
+
+.heading
+{
+    font-size: 20pt;
+    font-family: helvetica;
+    text-align: center;
+    color: #797d7a;
+}
+
+.box_s
+{
+    border-radius: 25px;
+    padding: 30px;
+    margin: 50px;
+    top:  30%;
+    left: 30%;
+
+    background-color: #edeff2;
+    box-shadow:
+    4px 4px 6px 0 rgba(0, 0, 0, 0.2),
+    -4px -4px 6px 0 rgba(255, 255, 255, 0.8);
+}
+
+.box_s1
+{
+    border-radius: 25px;
+    padding: 30px;
+
+    background-color: #edeff2;
+    box-shadow:
+    4px 4px 6px 0 rgba(0, 0, 0, 0.2),
+    -4px -4px 6px 0 rgba(255, 255, 255, 0.8);
+}
+
+.button_s
+{
+    background-color: #edeff2;
+    border-radius: 25px;
+    padding: 10px;
+    border: none;
+    width: 120px;
+    text-align: center;
+    color: #797d7a;
+    font-size: 12pt;
+    font-family: helvetica;
+    font-weight: 300;
+    text-align: center;
+    box-shadow:
+    4px 4px 6px 0 rgba(0, 0, 0, 0.2),
+    -4px -4px 6px 0 rgba(255, 255, 255, 0.8);
+}
+
+.button_s:active
+{
+    box-shadow:
+    4px 4px 6px 0 rgba(0, 0, 0, 0.2) inset,
+    -4px -4px 6px 0 rgba(255, 255, 255, 0.8) inset;
+}
+
+
+.form_control
+{
+    box-shadow:
+    4px 4px 6px 0 rgba(0, 0, 0, 0.2) inset,
+    -4px -4px 6px 0 rgba(255, 255, 255, 0.8) inset;
+    background-color: #edeff2;
+    border-radius: 25px;
+    padding: 20px
+}
+
 .nav-icon {
     width: 280px;
     height: 70px;
@@ -93,4 +181,39 @@ margin-right: 1rem;
 .myh2{
     text-align: center;
     margin-top: 50px;
+}
+
+.webpage{
+    padding: 50px;
+}
+
+.webpagerego{
+    padding: 50px;
+    position: absolute;
+    top:  50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+
+textarea {
+    resize: none;
+  }
+
+.navbar-custom{
+    background-color: #85B7CC;
+}
+
+.register{
+    background-color: #edeff2;
+    border-radius: 25px;
+    padding: 5px;
+    margin: 5px;
+}
+
+.login{
+    border-radius: 25px;
+    padding: 5px;
+    border:5px;
+    border-color: #edeff2;
+    margin: 5px;
 }
