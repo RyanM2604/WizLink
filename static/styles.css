@@ -96,17 +96,6 @@ h1
     -4px -4px 6px 0 rgba(255, 255, 255, 0.8) inset;
 }
 
-
-.form_control
-{
-    box-shadow:
-    4px 4px 6px 0 rgba(0, 0, 0, 0.2) inset,
-    -4px -4px 6px 0 rgba(255, 255, 255, 0.8) inset;
-    background-color: #edeff2;
-    border-radius: 25px;
-    padding: 20px
-}
-
 .nav-icon {
     width: 280px;
     height: 70px;
