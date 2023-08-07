@@ -5,17 +5,39 @@
 {% endblock %}
 
 {% block main %}
-<div id="outline-box">
-    <button class="btn btn-info">Math</button>
-    <button class="btn btn-info">Physics</button>
-    <button class="btn btn-info">Computer Science</button>
-    <button class="btn btn-info">English</button>
+<div id="outline-box" class="box_s" style="height: 50vh; width: 50vw; margin-left: 40vh">
+    <div class="btn-rows">
+        <button class="btn btn-info custom-smaller">Math</button>
+        <button class="btn btn-info custom-smaller">Physics</button>
+        <button class="btn btn-info custom-smaller">Computer Science</button>
+        <button class="btn btn-info custom-smaller">English</button>
+    </div>
+    <div class="btn-rows">
+        <button class="btn btn-info custom-smaller">Chemistry</button>
+        <button class="btn btn-info custom-smaller">Business</button>
+        <button class="btn btn-info custom-smaller">Biology</button>
+        <button class="btn btn-info custom-smaller">History</button>
+    </div>
+    <div class="btn-rows">
+        <button class="btn btn-info custom-smaller">Languages</button>
+        <button class="btn btn-info custom-smaller">Economics</button>
+        <button class="btn btn-info custom-smaller">Geography</button>
+        <button id="other" class="btn btn-info custom-smaller">Other</button>
+        <div id="other-dropdown" class="dropdown" style="display: none;">
+            <input type="text" id="other-input" class="form-control" placeholder="Enter custom tag">
+        </div>
+    </div>
+    <div style="margin-top: 20px; text-align: center;">
+        <button id="submit_btn" class="btn bg-primary">Submit</button>
+    </div>
 </div>
 
-<button id="submit_btn" class="btn bg-primary">Submit</button>
-
 <script>
+    const otherButton = document.getElementById("other");
+    const otherDropdown = document.getElementById("other-dropdown");
+    const otherInput = document.getElementById("other-input");
     let selected = [];
+
     let submit_btn = document.getElementById("submit_btn");
     document.addEventListener("DOMContentLoaded", function() {
         const darkButtons = document.querySelectorAll(".btn-info");
@@ -36,6 +58,12 @@
     });
 
     submit_btn.addEventListener("click", function() {
+        if (otherDropdown.style.display == "block") {
+            selected.push(otherInput.value);
+        }
+
+        console.log(selected);
+
         data = { "tags": selected };
 
         fetch("/submit-tags", {
@@ -60,5 +88,15 @@
 
         window.location.href = "/";
     })
+
+    otherButton.addEventListener("click", function() {
+        if (otherDropdown.style.display == "none") {
+            otherDropdown.style.display = "block";
+        }
+        else {
+            otherDropdown.style.display = "none";
+        }
+
+    });
 </script>
 {% endblock %}

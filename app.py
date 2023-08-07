@@ -127,7 +127,7 @@ def submit_tags():
     received_data = request.json
     tags = received_data.get('tags', [])
 
-    db.execute("UPDATE users SET categories = ? WHERE id = ?", [",".join(tags)], session["user_id"])
+    db.execute("UPDATE users SET categories = ? WHERE id = ?", [", ".join(tags)], session["user_id"])
     return jsonify({"response": "Tags received successfully"})
 
 @app.route("/login", methods=["GET", "POST"])

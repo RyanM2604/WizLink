@@ -82,7 +82,7 @@ const startRoom = async (event) => {
     if (room) {
       room.disconnect();
       handleDisconnectedParticipant(room.localParticipant, room)
-      window.location.href = "/";
+      window.location.href = "/call";
     }
 
     const shareScreen = document.getElementById('share_screen');
