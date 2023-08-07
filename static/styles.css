@@ -17,12 +17,15 @@ body
     font-weight: 300;
 }
 
-.heading
+.header{
+    text-align: center;
+    color: #405E79;
+}
+
+h1
 {
-    font-size: 20pt;
     font-family: helvetica;
     text-align: center;
-    color: #797d7a;
 }
 
 .box_s
