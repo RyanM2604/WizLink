@@ -237,7 +237,7 @@ def publish():
 @app.route("/guides")
 def guides():
     posts_list = db.execute("SELECT * FROM posts ORDER BY time DESC")
-    num_of_rows = math.ceil(len(posts_list) / 5)
+    num_of_rows = len(posts_list)
     return render_template('guides.html', guides = posts_list, num_of_rows=num_of_rows)
 
 @app.route("/post/<pid>")
