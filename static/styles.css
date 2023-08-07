@@ -21,7 +21,7 @@ body
 
 .form_control{
     font-family: helvetica;
-    font-weight: 300;
+    font-weight: 100;
 }
 
 .header{
@@ -272,7 +272,6 @@ textarea {
 }
 
 .btn-inf{
-<<<<<<< HEAD
     background-color: lightblue;
 }
 
@@ -290,7 +289,4 @@ textarea {
     transform: translateY(-50%);
     width: 100%;
     text-align: center; 
-=======
-    background-color: #edeff2;
->>>>>>> c47d30328556ef26acd2dcf7ab5c3e7842cfa2f0
 }
