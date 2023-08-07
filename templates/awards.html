@@ -15,7 +15,7 @@
     <div class="container awards header">
         <div class="row" style="margin-left: 50px;">
             <div class="box_s col-md-3" id=boxx style="width: 22%; height: 20%;">
-                <img src="static/award-grey.png" id="award1" style="margin-bottom: 20px;">
+                <img src="static/descartes-gray.png" id="award1" style="margin-bottom: 20px;">
                 <p style="text-align: center;">
                     Earn 100 points by Hosting a call, Answering a call, or Publishing
                 </p>
@@ -24,7 +24,7 @@
                 </h1>
             </div>
             <div class="box_s col-md-3" id=boxx style="width: 22%; height: 20%;">
-                <img src="static/award-grey.png" id="award2" style="margin-bottom: 20px;">
+                <img src="static/pascal-gray.png" id="award2" style="margin-bottom: 20px;">
                 <p style="text-align: center;">
                     Earn 200 points by Hosting a call, Answering a call, or Publishing
                 </p>
@@ -33,7 +33,7 @@
                 </h1>
             </div>
             <div class="box_s col-md-3" id=boxx style="width: 22%; height: 20%;">
-                <img src="static/award-grey.png" id="award3" style="margin-bottom: 20px;">
+                <img src="static/plato-gray.png" id="award3" style="margin-bottom: 20px;">
                 <p style="text-align: center;">
                     Earn 300 points by Hosting a call, Answering a call, or Publishing
                 </p>
@@ -42,7 +42,7 @@
                 </h1>
             </div>
             <div class="box_s col-md-3" id=boxx style="width: 22%; height: 20%;">
-                <img src="static/award-grey.png" id="award4" style="margin-bottom: 20px;">
+                <img src="static/aristotle-gray.png" id="award4" style="margin-bottom: 20px;">
                 <p style="text-align: center;">
                     Earn 400 points by Hosting a call, Answering a call, or Publishing
                 </p>
@@ -72,16 +72,16 @@
         var award4 = document.getElementById("award4");
 
         if (points >= 100) {
-            award1.src = "static/award.png";
+            award1.src = "static/descartes.png";
         }
         if (points >= 200) {
-            award2.src = "static/award.png";
+            award2.src = "static/pascal.png";
         }
         if (points >= 300) {
-            award3.src = "static/award.png";
+            award3.src = "static/plato.png";
         }
         if (points >= 400) {
-            award4.src = "static/award.png";
+            award4.src = "static/aristotle.png";
         }
     </script>
 
@@ -134,7 +134,6 @@
         ],
         borderWidth: 0,
         barPercentage: '0.3',
-        borderSkipped: 'right',
         borderRadius: 20
       },{
         label: 'Points goal',
@@ -201,4 +200,11 @@
     const chartVersion = document.getElementById('chartVersion');
     chartVersion.innerText = Chart.version;
     </script>
+
+<style>
+    img {
+        height: 150px;
+    }
+</style>
+
 {% endblock %}
