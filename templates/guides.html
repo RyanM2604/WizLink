@@ -10,6 +10,7 @@
             {% for i in range(num_of_rows) %}
                 <a href="/post/{{guides[i].post_id}}" style="width: 450px; text-decoration:none; color: black;">
                     <div class="guides box_s">
+                        <p class="header" style="font-weight: 800; text-align: left;">{{ guides[i].title }}</p>
                         <p>By {{ guides[i].author }}</p>
                         <p>Posted on {{ guides[i].time }}</p> 
                     </div>
