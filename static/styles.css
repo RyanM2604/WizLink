@@ -250,3 +250,18 @@ textarea {
     width: 50%;
     float: left;
 }  
+
+.custom-smaller {
+    width: 24%;
+    height: 100%;
+    padding: 10px;
+}
+
+.btn-rows{
+    height: 100px;
+    padding: 10px;
+}
+
+.btn-inf{
+    background-color: lightblue;
+}
