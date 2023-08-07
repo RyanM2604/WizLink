@@ -77,7 +77,11 @@ def register():
         # Getting form variables
         username = request.form.get("username")
         password = request.form.get("password")
-        role = request.form["role"]
+        try:
+            role = request.form["role"]
+        except KeyError:
+            return apology("role not selected", 403)
+
         print(role)
         gender = request.form.get("gender").lower()
         check = request.form.get("confirmation")
@@ -87,8 +91,8 @@ def register():
             emailinfo = validate_email(email, check_deliverability=False)
             email = emailinfo.normalized
 
-        except EmailNotValidError as e:
-            return apology(e, 403)
+        except EmailNotValidError:
+            return apology("invalid email address", 403)
 
 
         rows = db.execute("SELECT * FROM users WHERE username = ?", request.form.get("username"))
@@ -99,11 +103,11 @@ def register():
         elif not password:
             return apology("must provide password", 400)
         elif not check:
-            return apology("must provide password confirmation", 400)
+            return apology("re-enter password", 400)
         elif password != check:
             return apology("passwords don't match", 403)
         elif len(rows) > 0:
-            return apology("username exists", 403)
+            return apology("username already exists", 403)
         else:
             # Entering a new user in database
             pass_hash = generate_password_hash(password)

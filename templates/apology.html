@@ -5,7 +5,10 @@
 {% endblock %}
 
 {% block main %}
-<p class="error">
-    Error: {{ error_code }} {{ text }}
+<p class="box_s1">
+    error: {{ text }}
 </p>
+<div class="text-left">
+    <button class="button_s" onclick="history.back()">back</button>
+</div>
 {% endblock %}
