@@ -75,14 +75,40 @@ const startRoom = async (event) => {
   window.addEventListener("beforeunload", () => room.disconnect());
 
   // Function to disconnect from the room
-const disconnectFromRoom = () => {
-  // Disconnect the room
-  if (room) {
-    room.disconnect();
-    handleDisconnectedParticipant(room.localParticipant, room)
-    window.location.href = "/";
-  }
+  const disconnectFromRoom = () => {
+    // Disconnect the room
+    if (room) {
+      room.disconnect();
+      handleDisconnectedParticipant(room.localParticipant, room)
+      window.location.href = "/";
+    }
+
+    const shareScreen = document.getElementById('share_screen');
+    var screenTrack;
+    shareScreen.addEventListener('click', shareScreenHandler);
+
+    function shareScreenHandler() {
+      event.preventDefault();
+      if (!screenTrack) {
+          navigator.mediaDevices.getDisplayMedia().then(stream => {
+              screenTrack = new Twilio.Video.LocalVideoTrack(stream.getTracks()[0]);
+              room.localParticipant.publishTrack(screenTrack);
+              shareScreen.innerHTML = 'Stop sharing';
+              screenTrack.mediaStreamTrack.onended = () => { shareScreenHandler() };
+          }).catch(() => {
+              alert('Could not share the screen.');
+          });
+      }
+      else {
+          room.localParticipant.unpublishTrack(screenTrack);
+          screenTrack.stop();
+          screenTrack = null;
+          shareScreen.innerHTML = 'Share screen';
+      }
+  };
 };
+
+navigator.mediaDevices.getDisplayMedia
 
 const muteAudio = () => {
   // closes audio track 
