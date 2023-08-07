@@ -5,6 +5,13 @@
 {% endblock %}
 
 {% block main %}
+<div class="header">
+    <h1>
+        <b>milestones</b>
+    </h1>
+    <p>reach personal milestones by writing guides, joining sessions, and helping others. check your position on the leaderboard.</p>
+</div>
+
     <div class="container awards">
         <div class="row">
             <div class="col-md-3">
@@ -70,7 +77,8 @@
         }
     </script>
 
-<h2 class="myh2" id="myh2"></h2>
+<div class="header" style="font-family: helvetica"><h1 id="myh2"></h1></div>
+
 
 <div class="row justify-content-center">
     <div class="col-sm-8">
@@ -111,24 +119,28 @@
         label: 'Current points',
         data: [curr_points],
         backgroundColor: [
-          'rgba(170, 255, 0, 0.2)',
+          'rgba(99, 184, 133, 1)',
         ],
         borderColor: [
-          'rgba(170, 255, 0, 1)',
+          'rgba(99, 184, 133, 1)',
         ],
-        borderWidth: 1,
-        barPercentage: '0.3'
+        borderWidth: 0,
+        barPercentage: '0.3',
+        borderSkipped: 'right',
+        borderRadius: 20
       },{
         label: 'Points goal',
         data: [goal_points],
         backgroundColor: [
-          'rgba(255, 26, 104, 0.2)',
+          'rgba(115, 115, 115, 1)',
         ],
         borderColor: [
-          'rgba(255, 26, 104, 1)',
+          'rgba(115, 115, 115, 1)',
         ],
-        borderWidth: 1,
-        barPercentage: '0.3'
+        borderWidth: 0,
+        barPercentage: '0.3',
+        borderRadius: 20,
+        borderSkipped: 'left'
       }]
     };
 

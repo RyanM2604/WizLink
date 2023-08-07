@@ -229,7 +229,21 @@ textarea {
 }
 
 .darken-btn {
-    background-color: #2d5278 !important; /* Change to your desired dark color */
-    color: white !important; /* Change to your desired text color */
+    background-color: #405E79;
+    color: white
 }
 
+.tabular {
+    color:#405E79;
+    font-family: helvetica;
+    font-weight: 100
+}
+
+.float-container {
+    padding: 20px;
+}
+
+.float-child {
+    width: 50%;
+    float: left;
+}  
