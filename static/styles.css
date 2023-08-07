@@ -38,7 +38,8 @@ body
     top: 65%;
     width: calc(100% + 2.75rem);
     z-index: -1;
-}
+    box-shadow: 0px 30px 60px #00000060;
+}   
 
 h1
 {
