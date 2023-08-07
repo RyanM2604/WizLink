@@ -22,6 +22,24 @@ body
     color: #405E79;
 }
 
+.highlight
+{
+    position:relative
+}
+
+.highlight::after
+{
+    background-color: #FFB1B1;
+    content: " ";
+    height: 30%;
+    position: absolute;
+    left: 0;
+    margin-left: -1rem;
+    top: 65%;
+    width: calc(100% + 2.75rem);
+    z-index: -1;
+}
+
 h1
 {
     font-family: helvetica;
