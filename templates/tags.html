@@ -1,0 +1,64 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Tags
+{% endblock %}
+
+{% block main %}
+<div id="outline-box">
+    <button class="btn btn-info">Math</button>
+    <button class="btn btn-info">Physics</button>
+    <button class="btn btn-info">Computer Science</button>
+    <button class="btn btn-info">English</button>
+</div>
+
+<button id="submit_btn" class="btn bg-primary">Submit</button>
+
+<script>
+    let selected = [];
+    let submit_btn = document.getElementById("submit_btn");
+    document.addEventListener("DOMContentLoaded", function() {
+        const darkButtons = document.querySelectorAll(".btn-info");
+
+        darkButtons.forEach(darkButton => {
+            darkButton.addEventListener("click", function() {
+                // Toggle the class to apply/remove the dark color
+                if (darkButton.classList.contains("darken-btn")) {
+                    darkButton.classList.remove("darken-btn");
+                    selected = selected.filter(item => item !== darkButton.innerHTML);
+
+                } else {
+                    darkButton.classList.add("darken-btn");
+                    selected.push(darkButton.innerHTML);
+                }
+            });
+        });
+    });
+
+    submit_btn.addEventListener("click", function() {
+        data = { "tags": selected };
+
+        fetch("/submit-tags", {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`Request failed with status: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log(data.response);
+        })
+        .catch(error => {
+            console.error(error);
+        });
+
+        window.location.href = "/";
+    })
+</script>
+{% endblock %}

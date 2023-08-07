@@ -217,3 +217,8 @@ textarea {
     border-color: #edeff2;
     margin: 5px;
 }
+
+.darken-btn {
+    background-color: #2d5278 !important; /* Change to your desired dark color */
+    color: white !important; /* Change to your desired text color */
+}
