@@ -22,6 +22,24 @@ body
     color: #405E79;
 }
 
+.highlight
+{
+    position:relative
+}
+
+.highlight::after
+{
+    background-color: #FFB1B1;
+    content: " ";
+    height: 30%;
+    position: absolute;
+    left: 0;
+    margin-left: -1rem;
+    top: 65%;
+    width: calc(100% + 2.75rem);
+    z-index: -1;
+}
+
 h1
 {
     font-family: helvetica;
@@ -76,17 +94,6 @@ h1
     box-shadow:
     4px 4px 6px 0 rgba(0, 0, 0, 0.2) inset,
     -4px -4px 6px 0 rgba(255, 255, 255, 0.8) inset;
-}
-
-
-.form_control
-{
-    box-shadow:
-    4px 4px 6px 0 rgba(0, 0, 0, 0.2) inset,
-    -4px -4px 6px 0 rgba(255, 255, 255, 0.8) inset;
-    background-color: #edeff2;
-    border-radius: 25px;
-    padding: 20px
 }
 
 .nav-icon {
@@ -203,7 +210,7 @@ textarea {
   }
 
 .navbar-custom{
-    background-color: #85B7CC;
+    background-color: #405E79;
 }
 
 .register{
@@ -225,3 +232,4 @@ textarea {
     background-color: #2d5278 !important; /* Change to your desired dark color */
     color: white !important; /* Change to your desired text color */
 }
+
