@@ -233,8 +233,9 @@ textarea {
 }
 
 .darken-btn {
-    background-color: #405E79;
-    color: white
+    box-shadow:
+    4px 4px 6px 0 rgba(0, 0, 0, 0.2) inset,
+    -4px -4px 6px 0 rgba(255, 255, 255, 0.8) inset;
 }
 
 .tabular {
@@ -253,9 +254,9 @@ textarea {
 }  
 
 .custom-smaller {
-    width: 24%;
+    width: 23%;
     height: 100%;
-    padding: 10px;
+    margin: 5px
 }
 
 .btn-rows{
@@ -264,5 +265,5 @@ textarea {
 }
 
 .btn-inf{
-    background-color: lightblue;
+    background-color: #edeff2;
 }

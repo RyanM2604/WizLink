@@ -5,31 +5,40 @@
 {% endblock %}
 
 {% block main %}
-<div id="outline-box" class="box_s" style="height: 50vh; width: 50vw; margin-left: 40vh">
+<div class="header">
+    <h1>
+        <b>select tags</b>
+    </h1>
+    <p>select topics that you are interested in to personalize your experience.</p>
+</div>  
+
+<div class="container">
+<div id="outline-box" class="box_s" style="padding: auto;">
     <div class="btn-rows">
-        <button class="btn btn-info custom-smaller">Math</button>
-        <button class="btn btn-info custom-smaller">Physics</button>
-        <button class="btn btn-info custom-smaller">Computer Science</button>
-        <button class="btn btn-info custom-smaller">English</button>
+        <button class="button_s btn-inf custom-smaller">math</button>
+        <button class="button_s btn-inf custom-smaller">physics</button>
+        <button class="button_s btn-inf custom-smaller">compsci</button>
+        <button class="button_s btn-inf custom-smaller">english</button>
     </div>
     <div class="btn-rows">
-        <button class="btn btn-info custom-smaller">Chemistry</button>
-        <button class="btn btn-info custom-smaller">Business</button>
-        <button class="btn btn-info custom-smaller">Biology</button>
-        <button class="btn btn-info custom-smaller">History</button>
+        <button class="button_s btn-inf custom-smaller">chemistry</button>
+        <button class="button_s btn-inf custom-smaller">business</button>
+        <button class="button_s btn-inf custom-smaller">biology</button>
+        <button class="button_s btn-inf custom-smaller">history</button>
     </div>
     <div class="btn-rows">
-        <button class="btn btn-info custom-smaller">Languages</button>
-        <button class="btn btn-info custom-smaller">Economics</button>
-        <button class="btn btn-info custom-smaller">Geography</button>
-        <button id="other" class="btn btn-info custom-smaller">Other</button>
+        <button class="button_s btn-inf custom-smaller">languages</button>
+        <button class="button_s btn-inf custom-smaller">economics</button>
+        <button class="button_s btn-inf custom-smaller">geography</button>
+        <button id="other" class="button_s btn-inf custom-smaller">other</button>
         <div id="other-dropdown" class="dropdown" style="display: none;">
             <input type="text" id="other-input" class="form-control" placeholder="Enter custom tag">
         </div>
     </div>
     <div style="margin-top: 20px; text-align: center;">
-        <button id="submit_btn" class="btn bg-primary">Submit</button>
+        <button id="submit_btn" class="button_s">Submit</button>
     </div>
+</div>
 </div>
 
 <script>
@@ -40,7 +49,7 @@
 
     let submit_btn = document.getElementById("submit_btn");
     document.addEventListener("DOMContentLoaded", function() {
-        const darkButtons = document.querySelectorAll(".btn-info");
+        const darkButtons = document.querySelectorAll(".btn-inf");
 
         darkButtons.forEach(darkButton => {
             darkButton.addEventListener("click", function() {
