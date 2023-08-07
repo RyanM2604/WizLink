@@ -1,203 +1,289 @@
-{% extends "layout.html" %}
+<!DOCTYPE html>
 
-{% block title %}
-    Register
-{% endblock %}
+<html lang="en">
+    <head>
 
-{% block main %}
-<div class="gradient-container">
-        <div class="container" id="centering">
-        <!-- Page contents -->
-            <div id="welcome-container" style="height: 500px; display: flex; flex-direction: column; justify-content: center; align-items: center;">
-                <div id="welcome-text" class="hidden">
-                    <h1 class="highlight neon" style="font-size: 150px; font-family: helvetica; font-weight: 900; color: white;">wizlink</h1>
-                    <p style="color: white">take learning beyond the textbook.</p>
+        <meta charset="utf-8">
+        <meta name="viewport" content="initial-scale=1, width=device-width">
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+        <link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" rel="stylesheet">
+        <script crossorigin="anonymous" src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"></script>
+
+        <!-- TODO: add icon -->
+        <link href="static/logo.png" rel="icon">
+
+        <link href="/static/styles.css" rel="stylesheet">
+
+        <title>ExpertRadar: {% block title %}{% endblock %}</title>
+    </head>
+
+    <body>
+
+      <!-- Navbar -->
+      <div id="nav1">
+      <nav class="navbar navbar-expand-lg navbar-dark navbar-custom nav-fill w-100">
+        <div class="container d-flex justify-content-between">
+          <div>
+            <a class="navbar-brand" href="/">
+              <img src="static/home.png" class="img-fluid nav-icon" style="width: 40%; height:40%"></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+          </div>
+          <div>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+              <div class="navbar-nav">
+                {% if session["user_id"] %}
+                <ul class="navbar-nav me-auto mt-2">
+                  <li class="nav-item"><a class="nav-link" href="/call">sessions</a></li>
+                  <li class="nav-item"><a class="nav-link" href="/guides">guides</a></li>
+                  <li class="nav-item"><a class="nav-link" href="/publish">publish</a></li>
+                  <li class="nav-item"><a class="nav-link" href="/leaderboard">leaderboard</a></li>
+                  <li class="nav-item"><a class="nav-link" href="/awards">milestones</a></li>
+                </ul>
+                <ul class="navbar-nav ms-auto mt-2">
+                  <li class="nav-item"><a class="nav-link" href="/logout">log out</a></li>
+                </ul>
+                {% else %}
+                <ul class="navbar-nav ms-auto mt-2">
+                  <li class="nav-item">
+                    <a class="nav-link register" href="/register" style="color: #405E79;">
+                      Register
+                    </a>
+                  </li>
+                  <li class="nav-item"><a class="nav-link login" href="/login">Log In</a></li>
+                </ul>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+      </div>
+
+        
+            <!-- Page contents -->
+            <div id="gradient-back" style="height: 800px;">
+                <div id="welcome-container" style="height: 500px; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                    <div id="welcome-text" class="hidden" style=>
+                        <h1 class="highlight neon" style="font-size: 150px; font-family: helvetica; font-weight: 900; color: white;">wizlink</h1>
+                        <p style="color: white">take learning beyond the textbook.</p>
+                    </div>
                 </div>
             </div>
-        
-            <style>
-                #centering {
-                    margin: 0;
-                    position: absolute;
-                    top: 50%;
-                    -ms-transform: translateY(-50%);
-                    transform: translateY(-50%);
-                }
-                #welcome-container {
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    height: 100vh;
-                }
-            
-                #welcome-text {
-                    font-size: 24px;
-                    opacity: 0;
-                    text-align: center;
-                }
-            
-                .fade-in {
-                    animation: fadeIn 4s forwards;
-                }
-            
-                .neon{
-                    text-shadow: 5px 20px 50px #FFFFFFAA, -5px 20px 50px #87CEEBAA;
-                }
+    
+                <div class="scroll-parent" style="margin-top: 50px;">
+                    <div class="scroll-element primary">
+                        <img src="static/scroll/img1.jpg" class="loading" style="width: 300px; height: 200px; padding-left: 30px;">
+                        <img src="static/scroll/img2.jpg" class="loading" style="width: 300px; height: 200px; padding-left: 30px;">
+                        <img src="static/scroll/img3.jpg" class="loading" style="width: 300px; height: 200px; padding-left: 30px;">
+                        <img src="static/scroll/img4.jpg" class="loading" style="width: 300px; height: 200px; padding-left: 30px;">
+                        <img src="static/scroll/img5.jpg" class="loading" style="width: 220px; height: 200px; padding-left: 30px;">
+                    </div>
+                    <div class="scroll-element secondary">
+                        <img src="static/scroll/img1.jpg" class="loading" style="width: 300px; height: 200px; padding-left: 30px;">
+                        <img src="static/scroll/img2.jpg" class="loading" style="width: 300px; height: 200px; padding-left: 30px;">
+                        <img src="static/scroll/img3.jpg" class="loading" style="width: 300px; height: 200px; padding-left: 30px;">
+                        <img src="static/scroll/img4.jpg" class="loading" style="width: 300px; height: 200px; padding-left: 30px;">
+                        <img src="static/scroll/img5.jpg" class="loading" style="width: 220px; height: 200px; padding-left: 30px;">
+                    </div>
+                </div>
 
-                @keyframes fadeIn {
-                    0% {
+               
+                
+                    <div class="d-sm-flex box_s" style="margin-top: 0px;">
+                            <div class="col-4">
+                                <img src="static/scroll/img4.jpg" style="width: 300px; height: 200px; padding-left: 30px;">
+                            </div>
+                                <div class="col-6" style="margin-left: 40px;">
+                                    <p>Kwesi Jeffers was a noble man who ventured niagra falls. Kwesi Jeffers was a noble man who ventured niagra falls. Kwesi Jeffers was a noble man who ventured niagra falls. Kwesi Jeffers was a noble man who ventured niagra falls. </p>
+                                </div>
+                            </div>
+                        
+                    </div>
+                </div>
+                <div id="join-us" style="margin: 0px, auto; margin-top: 100px;">
+                    <h2>
+                        Join Us
+                    </h2>
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut et massa mi. Aliquam in hendrerit urna. Pellentesque sit amet sapien fringilla, mattis ligula consectetur, ultrices mauris. Maecenas vitae mattis tellus. Nullam quis imperdiet augue. Vestibulum auctor ornare leo, non suscipit magna interdum eu. Curabitur pellentesque nibh nibh, at maximus ante fermentum sit amet. Pellentesque commodo lacus at sodales sodales. Quisque sagittis orci ut diam condimentum, vel euismod erat placerat. In iaculis arcu eros, eget tempus orci facilisis id.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut et massa mi. Aliquam in hendrerit urna. Pellentesque sit amet sapien fringilla, mattis ligula consectetur, ultrices mauris. Maecenas vitae mattis tellus. Nullam quis imperdiet augue. Vestibulum auctor ornare leo, non suscipit magna interdum eu. Curabitur pellentesque nibh nibh, at maximus ante fermentum sit amet. Pellentesque commodo lacus at sodales sodales.
+                    </p>
+                </div>
+
+                <div id="bottom-buttons">
+
+                </div>
+            </div>
+        </div>
+
+            
+                <style>
+                    #centering {
+                        margin: 0;
+                        position: absolute;
+                        top: 50%;
+                        height: 100px;
+                        
+                    }
+                    #welcome-container {
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        height: 100vh;
+                    }
+                
+                    #welcome-text {
+                        font-size: 24px;
                         opacity: 0;
+                        text-align: center;
                     }
-                    100% {
-                        opacity: 1;
+                
+                    .fade-in {
+                        animation: fadeIn 4s forwards;
                     }
-                }
-            </style>
-        
-            <script>
-                document.addEventListener("DOMContentLoaded", function () {
-                    const welcomeText = document.getElementById("welcome-text");
-                    
-                    // Add the "fade-in" class to trigger the animation
-                    welcomeText.classList.add("fade-in");
-                });
-            </script>
+                
+                    .neon{
+                        text-shadow: 5px 20px 50px #FFFFFFAA, -5px 20px 50px #87CEEBAA;
+                    }
+    
+                    @keyframes fadeIn {
+                        0% {
+                            opacity: 0;
+                        }
+                        100% {
+                            opacity: 1;
+                        }
+                    }
+                </style>
             
-            <style>
-                .scroll-parent {
-                position: relative;
-                width: 100vw;
-                height: 20rem;
-                overflow-x: hidden;
-                }
-            
-                .scroll-element {
-                width: inherit;
-                height: inherit;
-                position: absolute;
-                margin-top: 400px;
-                left: 0%;
-                top: 0%;
-                animation: primary 5s linear infinite;
-                }
-            
-                @keyframes primary {
-                from {
+                <script>
+                    document.addEventListener("DOMContentLoaded", function () {
+                        const welcomeText = document.getElementById("welcome-text");
+                        
+                        // Add the "fade-in" class to trigger the animation
+                        welcomeText.classList.add("fade-in");
+                    });
+                </script>
+                
+                <style>
+                    .scroll-parent {
+                    position: relative;
+                    width: 100vw;
+                    height: 50vh;
+                    overflow: hidden;
+                    }
+                
+                    .scroll-element {
+                    width: 200%;
+                    height: inherit;
+                    position: absolute;
                     left: 0%;
-                }
-                to {
-                    left: -100%;
-                }
-                }
-            
-                .primary {
-                    animation: primary 6s linear infinite;
-                }
-            
-                .secondary {
-                    animation: secondary 6s linear infinite;
-                }
-            
-                @keyframes primary {
+                    top: 0%;
+                    animation: primary 5s linear infinite;
+                    }
+                
+                    @keyframes primary {
                     from {
                         left: 0%;
                     }
                     to {
                         left: -100%;
                     }
-                }
-            
-                @keyframes secondary {
-                    from {
-                        left: 100%;
                     }
-                    to {
-                        left: 0%;
+                
+                    .primary {
+                        animation: primary 6s linear infinite;
                     }
-                }
-                .loading {
-                    display: none;
-                }
-            </style>
-        </div>
-        
-        <style>
-            .gradient-container {
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background: linear-gradient(-45deg, #87CEEB, #405E79);
-                animation: gradient 5s ease infinite;
-                z-index: -1;
-            }
+                
+                    .secondary {
+                        animation: secondary 6s linear infinite;
+                    }
+                
+                    @keyframes primary {
+                        from {
+                            left: 0%;
+                        }
+                        to {
+                            left: -100%;
+                        }
+                    }
+                
+                    @keyframes secondary {
+                        from {
+                            left: 100%;
+                        }
+                        to {
+                            left: 0%;
+                        }
+                    }
+                    .loading {
+                        display: none;
+                    }
+                </style>
+            </div>
             
-            @keyframes gradient {
-                0% {
-                    background-position: 0% 50%;
-                }
-                50% {
-                    background-position: 100% 50%;
-                }
-                100% {
-                    background-position: 0% 50%;
-                }
-            }
-
-            .fade-in-image {
-                animation: fadeInImage 1s ease forwards;
-                opacity: 0;
-            }
-
-            @keyframes fadeInImage {
-                from {
+            <style>
+    
+                .fade-in-image {
+                    animation: fadeInImage 1s ease forwards;
                     opacity: 0;
                 }
-                to {
-                    opacity: 1;
+    
+                @keyframes fadeInImage {
+                    from {
+                        opacity: 0;
+                    }
+                    to {
+                        opacity: 1;
+                    }
                 }
-            }
+            </style>
+            <script>
+    
+                document.addEventListener("DOMContentLoaded", function () {
+                const images = document.querySelectorAll(".loading");
+                
+                // Function to remove loading class
+                function removeLoadingClass() {
+                    images.forEach(image => {
+                        image.classList.remove("loading");
+                        image.classList.add("fade-in-image");
+                    });
+                }
+                
+                // Remove loading class after 4 seconds
+                setTimeout(removeLoadingClass, 4000);
+        });
+            </script>
+        </div>
+
+
+        <style>
+        #nav1{
+            position: fixed; /* Set the navbar to fixed position */
+            top: 0; /* Position the navbar at the top of the page */
+            width: 100%; /* Full width */
+            transition: top 0.5s;
+            z-index: 3;
+        }
         </style>
+
         <script>
-            document.addEventListener("DOMContentLoaded", function () {
-                // Add a class to trigger the animation
-                const gradientContainer = document.querySelector(".gradient-container");
-                gradientContainer.classList.add("animate");
-            });
-
-            document.addEventListener("DOMContentLoaded", function () {
-            const images = document.querySelectorAll(".loading");
-            
-            // Function to remove loading class
-            function removeLoadingClass() {
-                images.forEach(image => {
-                    image.classList.remove("loading");
-                    image.classList.add("fade-in-image");
-                });
-            }
-            
-            // Remove loading class after 4 seconds
-            setTimeout(removeLoadingClass, 4000);
-    });
+        var lastScrollTop;
+        navbar = document.getElementById('nav1');
+        window.addEventListener('scroll',function(){
+        var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        if(scrollTop > lastScrollTop){
+        navbar.style.top='-80px';
+        }
+        else{
+        navbar.style.top='0';
+        }
+        lastScrollTop = scrollTop;
+        });
         </script>
-{% endblock %}
 
-{% block out_of_container %}
-<div class="scroll-parent">
-    <div class="scroll-element primary">
-        <img src="static/scroll/img1.jpg" class="loading" style="width: 300px; height: 200px; padding-left: 30px;">
-        <img src="static/scroll/img2.jpg" class="loading" style="width: 300px; height: 200px; padding-left: 30px;">
-        <img src="static/scroll/img3.jpg" class="loading" style="width: 300px; height: 200px; padding-left: 30px;">
-        <img src="static/scroll/img4.jpg" class="loading" style="width: 300px; height: 200px; padding-left: 30px;">
-        <img src="static/scroll/img5.jpg" class="loading" style="width: 220px; height: 200px; padding-left: 30px;">
-    </div>
-    <div class="scroll-element secondary">
-        <img src="static/scroll/img1.jpg" class="loading" style="width: 300px; height: 200px; padding-left: 30px;">
-        <img src="static/scroll/img2.jpg" class="loading" style="width: 300px; height: 200px; padding-left: 30px;">
-        <img src="static/scroll/img3.jpg" class="loading" style="width: 300px; height: 200px; padding-left: 30px;">
-        <img src="static/scroll/img4.jpg" class="loading" style="width: 300px; height: 200px; padding-left: 30px;">
-        <img src="static/scroll/img5.jpg" class="loading" style="width: 220px; height: 200px; padding-left: 30px;">
-    </div>
-</div>
-{% endblock %}
+    </body>
+</html>
