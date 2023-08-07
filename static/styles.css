@@ -94,3 +94,7 @@ margin-right: 1rem;
     text-align: center;
     margin-top: 50px;
 }
+
+.navbar.navbar-expand-lg.navbar-light {
+    background-color: blue; /* Change to your desired color */
+}

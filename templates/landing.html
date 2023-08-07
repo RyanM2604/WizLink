@@ -21,7 +21,7 @@
     <body>
 
       <!-- Navbar -->
-      <nav class="navbar navbar-expand-lg navbar-dark bg-secondary">
+      <nav class="navbar navbar-expand-lg navbar-light bg-secondary">
         <div class="container d-flex justify-content-between">
           <div>
             <a class="navbar-brand" href="/"><img src="static/icon.png" class="img-fluid nav-icon"></a>
@@ -55,48 +55,53 @@
         </div>
       </nav>
 
+      <div class="gradient-container"></div>
 
         <div class="container">
         <!-- Page contents -->
-                <div id="welcome-container" style="height: 500px;">
-                    <p id="welcome-text" class="hidden">Welcome to Expert Finder</p>
+            <div id="welcome-container" style="height: 500px; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                <div id="welcome-text" class="hidden">
+                    <h1>Wisdom Link</h1>
+                    <p>take learning beyond the textbook.</p>
                 </div>
+            </div>
+        
+            <style>
+                #welcome-container {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    height: 100vh;
+                }
             
-                <style>
-                    #welcome-container {
-                        display: flex;
-                        justify-content: center;
-                        align-items: center;
-                        height: 100vh;
-                    }
-                
-                    #welcome-text {
-                        font-size: 24px;
+                #welcome-text {
+                    font-size: 24px;
+                    opacity: 0;
+                    text-align: center;
+                }
+            
+                .fade-in {
+                    animation: fadeIn 2s forwards;
+                }
+            
+                @keyframes fadeIn {
+                    0% {
                         opacity: 0;
                     }
-                
-                    .fade-in {
-                        animation: fadeIn 2s forwards;
+                    100% {
+                        opacity: 1;
                     }
-                
-                    @keyframes fadeIn {
-                        0% {
-                            opacity: 0;
-                        }
-                        100% {
-                            opacity: 1;
-                        }
-                    }
-                </style>
-            
-                <script>
-                    document.addEventListener("DOMContentLoaded", function () {
-                        const welcomeText = document.getElementById("welcome-text");
-                        
-                        // Add the "fade-in" class to trigger the animation
-                        welcomeText.classList.add("fade-in");
-                    });
-                </script>
+                }
+            </style>
+        
+            <script>
+                document.addEventListener("DOMContentLoaded", function () {
+                    const welcomeText = document.getElementById("welcome-text");
+                    
+                    // Add the "fade-in" class to trigger the animation
+                    welcomeText.classList.add("fade-in");
+                });
+            </script>
             
             <style>
                 .scroll-parent {
@@ -151,7 +156,7 @@
                 }
             </style>
         </div>
-        
+        <!--
         <div class="scroll-parent">
             <div class="scroll-element primary">
                 <img src="static/scroll/img1.jpg" style="width: 300px; height: 200px; padding-left: 30px;">
@@ -167,7 +172,36 @@
                 <img src="static/scroll/img4.jpg" style="width: 300px; height: 200px; padding-left: 30px;">
                 <img src="static/scroll/img5.jpg" style="width: 220px; height: 200px; padding-left: 30px;">
             </div>
+            -->
         </div>
+        <style>
+            .gradient-container {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: transparent linear-gradient(to bottom right, #87CEEB, white);
+                animation: gradientFadeIn 2s ease-in-out forwards;
+                z-index: -1;
+            }
+
+            @keyframes gradientFadeIn {
+                0% {
+                    background: transparent linear-gradient(to bottom right, #87CEEB, white);
+                }
+                100% {
+                    background: linear-gradient(to bottom right, #87CEEB, white);
+                }
+            }
+        </style>
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                // Add a class to trigger the animation
+                const gradientContainer = document.querySelector(".gradient-container");
+                gradientContainer.classList.add("animate");
+            });
+        </script>
     </body>
 </html>
 
