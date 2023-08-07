@@ -58,6 +58,81 @@
                     welcomeText.classList.add("fade-in");
                 });
             </script>
+            
+            <style>
+                .scroll-parent {
+                position: relative;
+                width: 100vw;
+                height: 20rem;
+                overflow-x: hidden;
+                }
+            
+                .scroll-element {
+                width: inherit;
+                height: inherit;
+                position: absolute;
+                left: 0%;
+                top: 0%;
+                animation: primary 5s linear infinite;
+                }
+            
+                @keyframes primary {
+                from {
+                    left: 0%;
+                }
+                to {
+                    left: -100%;
+                }
+                }
+            
+                .primary {
+                    animation: primary 6s linear infinite;
+                }
+            
+                .secondary {
+                    animation: secondary 6s linear infinite;
+                }
+            
+                @keyframes primary {
+                    from {
+                        left: 0%;
+                    }
+                    to {
+                        left: -100%;
+                    }
+                }
+            
+                @keyframes secondary {
+                    from {
+                        left: 100%;
+                    }
+                    to {
+                        left: 0%;
+                    }
+                }
+                .loading {
+                    display: none;
+                }
+            </style>
+        </div>
+
+        <div class="scroll-parent">
+            <div class="scroll-element primary">
+                <img src="static/scroll/img1.jpg" class="loading" style="width: 300px; height: 200px; padding-left: 30px;">
+                <img src="static/scroll/img2.jpg" class="loading" style="width: 300px; height: 200px; padding-left: 30px;">
+                <img src="static/scroll/img3.jpg" class="loading" style="width: 300px; height: 200px; padding-left: 30px;">
+                <img src="static/scroll/img4.jpg" class="loading" style="width: 300px; height: 200px; padding-left: 30px;">
+                <img src="static/scroll/img5.jpg" class="loading" style="width: 220px; height: 200px; padding-left: 30px;">
+            </div>
+            <div class="scroll-element secondary">
+                <img src="static/scroll/img1.jpg" class="loading" style="width: 300px; height: 200px; padding-left: 30px;">
+                <img src="static/scroll/img2.jpg" class="loading" style="width: 300px; height: 200px; padding-left: 30px;">
+                <img src="static/scroll/img3.jpg" class="loading" style="width: 300px; height: 200px; padding-left: 30px;">
+                <img src="static/scroll/img4.jpg" class="loading" style="width: 300px; height: 200px; padding-left: 30px;">
+                <img src="static/scroll/img5.jpg" class="loading" style="width: 220px; height: 200px; padding-left: 30px;">
+            </div>
+        </div>
+        
         <style>
             .gradient-container {
                 position: fixed;
@@ -81,6 +156,20 @@
                     background-position: 0% 50%;
                 }
             }
+
+            .fade-in-image {
+                animation: fadeInImage 1s ease forwards;
+                opacity: 0;
+            }
+
+            @keyframes fadeInImage {
+                from {
+                    opacity: 0;
+                }
+                to {
+                    opacity: 1;
+                }
+            }
         </style>
         <script>
             document.addEventListener("DOMContentLoaded", function () {
@@ -88,6 +177,21 @@
                 const gradientContainer = document.querySelector(".gradient-container");
                 gradientContainer.classList.add("animate");
             });
+
+            document.addEventListener("DOMContentLoaded", function () {
+            const images = document.querySelectorAll(".loading");
+            
+            // Function to remove loading class
+            function removeLoadingClass() {
+                images.forEach(image => {
+                    image.classList.remove("loading");
+                    image.classList.add("fade-in-image");
+                });
+            }
+            
+            // Remove loading class after 3 seconds
+            setTimeout(removeLoadingClass, 3000);
+    });
         </script>
     </body>
 </html>
