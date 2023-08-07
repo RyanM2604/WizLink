@@ -115,23 +115,6 @@
                 }
             </style>
         </div>
-
-        <div class="scroll-parent">
-            <div class="scroll-element primary">
-                <img src="static/scroll/img1.jpg" class="loading" style="width: 300px; height: 200px; padding-left: 30px;">
-                <img src="static/scroll/img2.jpg" class="loading" style="width: 300px; height: 200px; padding-left: 30px;">
-                <img src="static/scroll/img3.jpg" class="loading" style="width: 300px; height: 200px; padding-left: 30px;">
-                <img src="static/scroll/img4.jpg" class="loading" style="width: 300px; height: 200px; padding-left: 30px;">
-                <img src="static/scroll/img5.jpg" class="loading" style="width: 220px; height: 200px; padding-left: 30px;">
-            </div>
-            <div class="scroll-element secondary">
-                <img src="static/scroll/img1.jpg" class="loading" style="width: 300px; height: 200px; padding-left: 30px;">
-                <img src="static/scroll/img2.jpg" class="loading" style="width: 300px; height: 200px; padding-left: 30px;">
-                <img src="static/scroll/img3.jpg" class="loading" style="width: 300px; height: 200px; padding-left: 30px;">
-                <img src="static/scroll/img4.jpg" class="loading" style="width: 300px; height: 200px; padding-left: 30px;">
-                <img src="static/scroll/img5.jpg" class="loading" style="width: 220px; height: 200px; padding-left: 30px;">
-            </div>
-        </div>
         
         <style>
             .gradient-container {
@@ -170,6 +153,9 @@
                     opacity: 1;
                 }
             }
+            .scroll-parent {
+                margin-top: 400px;
+            }
         </style>
         <script>
             document.addEventListener("DOMContentLoaded", function () {
@@ -189,12 +175,29 @@
                 });
             }
             
-            // Remove loading class after 3 seconds
-            setTimeout(removeLoadingClass, 3000);
+            // Remove loading class after 4 seconds
+            setTimeout(removeLoadingClass, 4000);
     });
         </script>
     </body>
 </html>
+{% endblock %}
 
-
+{% block out_of_container %}
+<div class="scroll-parent">
+    <div class="scroll-element primary">
+        <img src="static/scroll/img1.jpg" class="loading" style="width: 300px; height: 200px; padding-left: 30px;">
+        <img src="static/scroll/img2.jpg" class="loading" style="width: 300px; height: 200px; padding-left: 30px;">
+        <img src="static/scroll/img3.jpg" class="loading" style="width: 300px; height: 200px; padding-left: 30px;">
+        <img src="static/scroll/img4.jpg" class="loading" style="width: 300px; height: 200px; padding-left: 30px;">
+        <img src="static/scroll/img5.jpg" class="loading" style="width: 220px; height: 200px; padding-left: 30px;">
+    </div>
+    <div class="scroll-element secondary">
+        <img src="static/scroll/img1.jpg" class="loading" style="width: 300px; height: 200px; padding-left: 30px;">
+        <img src="static/scroll/img2.jpg" class="loading" style="width: 300px; height: 200px; padding-left: 30px;">
+        <img src="static/scroll/img3.jpg" class="loading" style="width: 300px; height: 200px; padding-left: 30px;">
+        <img src="static/scroll/img4.jpg" class="loading" style="width: 300px; height: 200px; padding-left: 30px;">
+        <img src="static/scroll/img5.jpg" class="loading" style="width: 220px; height: 200px; padding-left: 30px;">
+    </div>
+</div>
 {% endblock %}
