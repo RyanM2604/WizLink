@@ -11,7 +11,7 @@
         <script crossorigin="anonymous" src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"></script>
 
         <!-- TODO: add icon -->
-        <link href="static/logo.png" rel="icon">
+        <link href="static/wizlink.png" rel="icon">
 
         <link href="/static/styles.css" rel="stylesheet">
 
@@ -21,46 +21,47 @@
     <body>
 
       <!-- Navbar -->
+      <!-- Navbar -->
       <div id="nav1">
-      <nav class="navbar navbar-expand-lg navbar-dark navbar-custom nav-fill w-100">
-        <div class="container d-flex justify-content-between">
-          <div>
-            <a class="navbar-brand" href="/">
-              <img src="static/home.png" class="img-fluid nav-icon" style="width: 40%; height:40%"></a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-            </button>
-          </div>
-          <div>
-            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-              <div class="navbar-nav">
-                {% if session["user_id"] %}
-                <ul class="navbar-nav me-auto mt-2">
-                  <li class="nav-item"><a class="nav-link" href="/call">sessions</a></li>
-                  <li class="nav-item"><a class="nav-link" href="/guides">guides</a></li>
-                  <li class="nav-item"><a class="nav-link" href="/publish">publish</a></li>
-                  <li class="nav-item"><a class="nav-link" href="/leaderboard">leaderboard</a></li>
-                  <li class="nav-item"><a class="nav-link" href="/awards">milestones</a></li>
-                </ul>
-                <ul class="navbar-nav ms-auto mt-2">
-                  <li class="nav-item"><a class="nav-link" href="/logout">log out</a></li>
-                </ul>
-                {% else %}
-                <ul class="navbar-nav ms-auto mt-2">
-                  <li class="nav-item">
-                    <a class="nav-link register" href="/register" style="color: #405E79;">
-                      Register
-                    </a>
-                  </li>
-                  <li class="nav-item"><a class="nav-link login" href="/login">Log In</a></li>
-                </ul>
-                {% endif %}
+        <nav class="navbar navbar-expand-lg navbar-dark navbar-custom nav-fill w-100">
+          <div class="container d-flex justify-content-between">
+            <div>
+              <a class="navbar-brand" href="/">
+                <img src="{{ url_for('static', filename='/wizlink.png') }}" class="img-fluid nav-icon" style="width: 10%; height:10%"></a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+            </div>
+            <div>
+              <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav">
+                  {% if session["user_id"] %}
+                  <ul class="navbar-nav me-auto mt-2">
+                    <li class="nav-item"><a class="nav-link" href="/call">sessions</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/guides">guides</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/publish">publish</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/leaderboard">leaderboard</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/awards">milestones</a></li>
+                  </ul>
+                  <ul class="navbar-nav ms-auto mt-2">
+                    <li class="nav-item"><a class="nav-link" href="/logout">logout</a></li>
+                  </ul>
+                  {% else %}
+                  <ul class="navbar-nav ms-auto mt-2">
+                    <li class="nav-item">
+                      <a class="nav-link register" href="/register" style="color: #405E79;">
+                        register
+                      </a>
+                    </li>
+                    <li class="nav-item"><a class="nav-link login" href="/login">log in</a></li>
+                  </ul>
+                  {% endif %}
+                </div>
               </div>
             </div>
           </div>
+        </nav>
         </div>
-      </nav>
-      </div>
 
         
             <!-- Page contents -->
@@ -92,28 +93,50 @@
 
                
                 
-                    <div class="d-sm-flex box_s" style="margin-top: 0px;">
-                            <div class="col-4">
-                                <img src="static/scroll/img4.jpg" style="width: 300px; height: 200px; padding-left: 30px;">
+                    <div class="d-sm-flex box_s" style="align-items: center; margin-left: 0; margin-right: 0; border-radius: 0px">
+                            <div class="col-1">
+                                <img src="static/scroll/img4.jpg" style="width: 300px; height: 200px; padding-left: 60px;">
                             </div>
-                                <div class="col-6" style="margin-left: 40px;">
-                                    <p>Kwesi Jeffers was a noble man who ventured niagra falls. Kwesi Jeffers was a noble man who ventured niagra falls. Kwesi Jeffers was a noble man who ventured niagra falls. Kwesi Jeffers was a noble man who ventured niagra falls. </p>
+                                <div class="col-6" style="margin-left: 230px;">
+                                    <p>Introducing WizLinks, the web app that enhances learning by connecting you to experts through video calls and written guides. Get personalized insights, feedback, and practical knowledge from seasoned professionals in real-time. Reinforce your learning with comprehensive guide pages. Embrace the power of direct connections with experts on WizLinks for an enriching educational journey tailored to your needs. 
+
+                                    </p>
                                 </div>
                             </div>
                         
                     </div>
                 </div>
-                <div id="join-us" style="margin: 0px, auto; margin-top: 100px;">
-                    <h2>
-                        Join Us
-                    </h2>
+                <div class="container" id="join-us">
+                    <h1 class="header">
+                        join us
+                    </h1>
                     <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut et massa mi. Aliquam in hendrerit urna. Pellentesque sit amet sapien fringilla, mattis ligula consectetur, ultrices mauris. Maecenas vitae mattis tellus. Nullam quis imperdiet augue. Vestibulum auctor ornare leo, non suscipit magna interdum eu. Curabitur pellentesque nibh nibh, at maximus ante fermentum sit amet. Pellentesque commodo lacus at sodales sodales. Quisque sagittis orci ut diam condimentum, vel euismod erat placerat. In iaculis arcu eros, eget tempus orci facilisis id.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut et massa mi. Aliquam in hendrerit urna. Pellentesque sit amet sapien fringilla, mattis ligula consectetur, ultrices mauris. Maecenas vitae mattis tellus. Nullam quis imperdiet augue. Vestibulum auctor ornare leo, non suscipit magna interdum eu. Curabitur pellentesque nibh nibh, at maximus ante fermentum sit amet. Pellentesque commodo lacus at sodales sodales.
-                    </p>
+                        Beyond the evident advantages of learning from experts, our platform strives to uncover the lesser-known benefits that emerge from engaging with seasoned professionals. By providing a unique opportunity to access specialized knowledge, learners can enhance their cognitive processing, develop critical thinking skills, and benefit from emotional and motivational gains. Collaborative learning environments fostered by our expert-guided sessions promote social interaction, while practical insights offered by experts lead to enhanced real-world application. Through our platform, users can tap into the hidden advantages of learning from experts, empowering themselves with long-term skill retention, broadened horizons, and the potential to challenge stereotypes. Discover the untapped potential of expert-guided learning and embark on a journey of comprehensive personal and professional growth with our cutting-edge knowledge exchange platform.                    </p>
                 </div>
-
-                <div id="bottom-buttons">
-
+                <div class="d-sm-flex box_s" style="margin-left: 0; margin-right: 0; border-radius: 0px;">
+                    <div class="col-6" style="padding-left:60px; padding-right:60px;">
+                        <h1 class="header">
+                            our mission
+                        </h1>
+                        <p>
+                            Our mission is to provide a platform for learners to connect with experts and gain access to specialized knowledge. We aim to empower learners with the tools to enhance their learning experience and broaden their horizons. By facilitating the exchange of knowledge between experts and learners, we hope to foster a collaborative learning environment that promotes growth. 
+                        </p>
+                    </div>
+                    <div class="col-6" style="padding-right:60px;">
+                        <h1 class="header", style="padding: auto;">
+                            about us
+                        </h1>
+                        <p>
+                            We are a duo of high school students passionate about education and technology based in Bangkok, Thailand. We believe that learning is a lifelong process and that everyone has something to learn and something to teach. Connect with us!
+                        </p>
+                            <a class="button_s" href="https://perakasem.crd.co" style="margin-right: 10px;">Pera Kasemsripitak</a>
+                            <a class="button_s" href="https://instagram.com/yes.its_ryan">Ryan Maudgalya</a>
+                    </div>
+                </div> 
+                <div class="container">
+                    <p>
+                        © 2023 Pera Kasemsripitak, Ryan Maudgalya
+                    </p>
                 </div>
             </div>
         </div>
@@ -171,7 +194,7 @@
                     .scroll-parent {
                     position: relative;
                     width: 100vw;
-                    height: 50vh;
+                    height: 25vh;
                     overflow: hidden;
                     }
                 
