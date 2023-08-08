@@ -1,7 +1,7 @@
 #content {
     margin-top: 50px;
     margin-left: 310px;
-    margin-right: 10px;
+    margin-right: 0; /* Adjust this value */
     overflow-y: auto;
 }
 
@@ -253,6 +253,10 @@ textarea {
 
 .float-container {
     padding: 20px;
+}
+
+.scroll-parent{
+    width: 1009px;
 }
 
 .float-child {
